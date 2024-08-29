@@ -28,9 +28,35 @@ export default {
         tighter: "-0.01em",
       },
       animation: {
-        default: "200ms cubic-bezier(0.4, 0, 0.2, 1)",
+        default: "200ms cubic-bezier(0.4, 0.2, 0.2, 1)",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        ".after-line": {
+          position: "relative",
+          fontSize: "20px",
+          lineHeight: "1.5",
+          fontWeight: "600",
+          marginBottom: "24px",
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            height: "1px",
+            backgroundColor: "#dadde1",
+            bottom: "-24px",
+            left: "0",
+            width: "100%",
+          },
+        },
+        ".custom-label": {
+          "@apply flex flex-col justify-center items-center px-10 border rounded-xl cursor-pointer transition-colors h-[96px]":
+            {},
+        },
+      };
+      addUtilities(newUtilities);
+    },
+  ],
 };

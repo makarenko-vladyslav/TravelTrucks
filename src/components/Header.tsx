@@ -11,7 +11,7 @@ export default function Header() {
             <img
               src={logoUrl}
               alt="logo"
-              className="absolute top-0 left-4 tab:left-16 py-3 cursor-pointer translate-y-1"
+              className="absolute top-0 left-4 lap:left-16 py-3 cursor-pointer translate-y-1"
             />
           </li>
           <li>
