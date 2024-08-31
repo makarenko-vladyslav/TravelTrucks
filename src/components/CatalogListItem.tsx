@@ -36,7 +36,7 @@ export default function CatalogListItem({ camper }: { camper: Camper }) {
     >
       <img
         src={camper.gallery[0]?.thumb || "fallback-image-url"}
-        alt={camper.name}
+        alt={`${camper.name} photo`}
         // className="w-[292px] h-[350px] rounded-lg object-cover"
         className="h-full rounded-lg object-cover"
       />

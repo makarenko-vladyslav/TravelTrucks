@@ -6,14 +6,20 @@ const CatalogPage = lazy(() => import("../pages/CatalogPage"));
 const CatalogItemPage = lazy(() => import("../pages/CatalogItemPage"));
 const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));
 
+const Features = React.lazy(() => import("../components/Features"));
+const Reviews = React.lazy(() => import("../components/Reviews"));
+
 export default function App() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div >
+      <div>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/catalog" element={<CatalogPage />} />
-          <Route path="/catalog/:id" element={<CatalogItemPage />} />
+          <Route path="/catalog/:id" element={<CatalogItemPage />}>
+            <Route path="features" element={<Features />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
