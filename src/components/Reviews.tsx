@@ -42,21 +42,22 @@ export default function Reviews() {
       <ul className="py-3 max-w-[640px]">
         {camper?.reviews.length ? (
           camper.reviews.map((review, index) => (
-            <li key={index} className="mb-11 grid grid-cols-[60px_auto] gap-4">
+            <li
+              key={index + review.reviewer_rating + review.reviewer_name}
+              className="mb-11 grid grid-cols-[60px_auto] gap-4"
+            >
               <div className="rounded-full bg-badges w-[60px] h-[60px] flex justify-center items-center text-2xl leading-[1.33] text-button">
                 {review.reviewer_name[0]}
               </div>
 
               <div className="flex flex-col gap-1 justify-center">
-                <span className="block text-lg font-semibold">
-                  {review.reviewer_name}
-                </span>
+                <span className="font-medium">{review.reviewer_name}</span>
                 <div className="flex items-center">
                   {renderStars(review.reviewer_rating)}
                 </div>
               </div>
 
-              <p className="col-span-2 text-gray-700">{review.comment}</p>
+              <p className="col-span-2 text-text">{review.comment}</p>
             </li>
           ))
         ) : (

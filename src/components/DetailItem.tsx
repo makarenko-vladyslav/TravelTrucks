@@ -76,19 +76,15 @@ const DetailItem: React.FC<DetailItemProps> = ({ detailKey, value }) => {
     return null;
   }
 
+  const getValue = (value) => {
+    return typeof value === "boolean" ? detailKey : value.toString();
+  };
+
   return (
-    <li className="flex align-center gap-2 px-[18px] py-3 bg-badges rounded-full">
+    <li className="flex justify-center items-center gap-2 px-[18px] py-3 max-h-12 bg-badges rounded-full">
       {Icon && <Icon className="w-6 h-auto" />}
 
-      <span>
-        {typeof value === "boolean" ? (
-          <span className="capitalize">{detailKey && detailKey}</span>
-        ) : (
-          <span className="capitalize">
-            {value !== undefined ? value.toString() : ""}
-          </span>
-        )}
-      </span>
+      <span className="capitalize">{getValue(value)}</span>
     </li>
   );
 };

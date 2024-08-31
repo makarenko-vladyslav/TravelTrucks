@@ -33,7 +33,7 @@ export default function BookingForm() {
   };
 
   return (
-    <div className="px-14 py-11 border border-gray rounded-lg w-[641px]">
+    <div className="px-14 py-11 border border-gray rounded-lg w-[641px] h-fit">
       <h2 className="text-xl font-semibold mb-2">Book your campervan now</h2>
       <p className="text-sm text-gray-600 mb-4">
         Stay connected! We are always ready to help you.
