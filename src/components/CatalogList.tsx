@@ -1,29 +1,64 @@
-import React from "react";
-import campers from "../data/campers.json";
+// CatalogList.tsx
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../redux/store";
 import Button from "./Button";
 import CatalogListItem from "./CatalogListItem";
+import Loader from "./Loader";
+import { fetchCampers } from "../utils/api";
+import {
+  selectCampers,
+  selectLoading,
+  selectFilters,
+  selectFavorites,
+  selectCurrentPage,
+  selectItemsPerPage,
+} from "../redux/selectors";
+import { loadMore } from "../redux/camperSlice";
 
 export default function CatalogList() {
-  const handleClick = () => {
-    console.log("Load more");
+  const dispatch: AppDispatch = useDispatch();
+  const campers = useSelector(selectCampers);
+  const loading = useSelector(selectLoading);
+  const filters = useSelector(selectFilters);
+  const favorites = useSelector(selectFavorites);
+  const currentPage = useSelector(selectCurrentPage);
+  const itemsPerPage = useSelector(selectItemsPerPage);
+
+  useEffect(() => {
+    dispatch(
+      fetchCampers({ ...filters, page: currentPage, limit: itemsPerPage })
+    );
+  }, [dispatch, filters, currentPage, itemsPerPage]);
+
+  const handleLoadMore = () => {
+    dispatch(loadMore());
   };
 
   return (
-    <div>
-      <ul className="grid gap-8 w-full">
-        {campers.items.map((camper) => (
-          <CatalogListItem key={camper._id} camper={camper} />
-        ))}
-
-        <Button
-          onClick={handleClick}
-          width="145px"
-          className="mx-auto text-main bg-white border border-grayLight 
-          hover:bg-white hover:border-buttonHover"
-        >
-          Load more
-        </Button>
-      </ul>
-    </div>
+    <section className="campers-list">
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <ul className="grid gap-8 w-full">
+            {campers.map((camper) => (
+              <CatalogListItem
+                key={camper.id}
+                camper={camper}
+                isFavorite={favorites.includes(camper.id)}
+              />
+            ))}
+          </ul>
+          <Button
+            onClick={handleLoadMore}
+            width="145px"
+            className="mx-auto text-main bg-white border border-grayLight hover:bg-white hover:border-buttonHover"
+          >
+            Show more
+          </Button>
+        </>
+      )}
+    </section>
   );
 }

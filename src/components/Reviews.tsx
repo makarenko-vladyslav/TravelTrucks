@@ -12,7 +12,7 @@ type Review = {
 };
 
 type Camper = {
-  _id: string;
+  id: string;
   reviews: Review[];
 };
 
@@ -20,7 +20,7 @@ export default function Reviews() {
   const campers = campersData.items as Camper[];
 
   const { id } = useParams<{ id: string }>();
-  const camper = campers.find((camper) => camper._id === id);
+  const camper = campers.find((camper) => camper.id === id);
 
   const renderStars = (rating: number) => {
     const stars: React.ReactNode[] = [];

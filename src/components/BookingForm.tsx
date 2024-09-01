@@ -1,6 +1,8 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Button from "./Button";
 
@@ -29,8 +31,7 @@ const validationSchema = Yup.object({
 
 export default function BookingForm() {
   const onSubmit = (values: BookingFormValues, { resetForm }: any) => {
-    console.log("Form data", values);
-    alert("Booking successful!");
+    toast.success("Booking successful!");
     resetForm();
   };
 
@@ -46,10 +47,6 @@ export default function BookingForm() {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {/* border-radius: 12px;
-
- */}
-
         <Form className="relative flex flex-col gap-[14px] justify-center items-center">
           <span className="w-full relative">
             <Field
@@ -116,6 +113,8 @@ export default function BookingForm() {
           </Button>
         </Form>
       </Formik>
+
+      <ToastContainer />
     </div>
   );
 }

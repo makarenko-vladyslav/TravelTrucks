@@ -5,39 +5,35 @@ import { FaStar } from "react-icons/fa";
 import { BsSuitHeart } from "react-icons/bs";
 import { CiMap } from "react-icons/ci";
 import DetailItem from "./DetailItem";
+import { Camper } from "../types";
 
-interface Camper {
-  _id: string;
-  name: string;
-  price: number;
-  rating: number;
-  location: string;
-  description: string;
-  specs: {
-    form: string;
-    length: string;
-    width: string;
-    height: string;
-    tank: string;
-    consumption: string;
-  };
-  details: {
-    [key: string]: string | boolean | number | undefined;
-  };
-  gallery: { thumb: string }[];
-  reviews: { length: number };
+interface CatalogListItemProps {
+  camper: Camper;
 }
 
-export default function CatalogListItem({ camper }: { camper: Camper }) {
+const allowedKeys = [
+  "transmission",
+  "engine",
+  "AC",
+  "bathroom",
+  "kitchen",
+  "TV",
+  "radio",
+  "refrigerator",
+  "microwave",
+  "gas",
+  "water",
+];
+
+const CatalogListItem: React.FC<CatalogListItemProps> = ({ camper }) => {
   return (
     <li
-      key={camper._id}
+      key={camper.id}
       className="grid grid-cols-2 lap:grid-cols-[300px_1fr] gap-6 border border-grayLight p-6 rounded-[20px] w-full min-h-[368px] overflow-hidden"
     >
       <img
-        src={camper.gallery[0]?.thumb || "fallback-image-url"}
+        src={camper.gallery[0]?.thumb}
         alt={`${camper.name} photo`}
-        // className="w-[292px] h-[350px] rounded-lg object-cover"
         className="h-full rounded-lg object-cover"
       />
       <div>
@@ -72,12 +68,14 @@ export default function CatalogListItem({ camper }: { camper: Camper }) {
         </p>
 
         <ul className="flex flex-wrap gap-2 mb-6">
-          {Object.entries(camper.details).map(([key, value]) => (
-            <DetailItem key={key} detailKey={key} value={value} />
-          ))}
+          {Object.entries(camper)
+            .filter(([key]) => allowedKeys.includes(key))
+            .map(([key, value]) => (
+              <DetailItem key={key} detailKey={key} value={value} />
+            ))}
         </ul>
 
-        <Link to={`/catalog/${camper._id}`}>
+        <Link to={`/catalog/${camper.id}`}>
           <Button className="text-white" width="166px">
             Show more
           </Button>
@@ -85,4 +83,6 @@ export default function CatalogListItem({ camper }: { camper: Camper }) {
       </div>
     </li>
   );
-}
+};
+
+export default CatalogListItem;

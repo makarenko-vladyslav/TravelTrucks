@@ -43,9 +43,7 @@ export default function SearchForm() {
     sidebar?.classList.toggle("show-sidebar");
   };
 
-  const handleSubmit = (values) => {
-    console.log("Search ", values);
-  };
+  const handleSubmit = (values) => {};
 
   return (
     <aside className="sidebar">

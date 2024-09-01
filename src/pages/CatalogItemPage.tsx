@@ -1,11 +1,5 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
-import {
-  Link,
-  NavLink,
-  Outlet,
-  useLocation,
-  useParams,
-} from "react-router-dom";
+import React, { Suspense } from "react";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 
 import campersData from "../data/campers.json";
 import Header from "../components/Header";
@@ -56,9 +50,7 @@ const responsive = {
 const campers = campersData.items;
 export default function CatalogItemPage() {
   const { id } = useParams<{ id: string }>();
-  const camper: Camper | undefined = campers.find(
-    (camper) => camper._id === id
-  );
+  const camper: Camper | undefined = campers.find((camper) => camper.id === id);
 
   const isTabletOrMobile = isMobileOrTablet();
   if (!camper) {
@@ -117,7 +109,7 @@ export default function CatalogItemPage() {
           rewindWithAnimation={true}
           className="mb-6"
         >
-          {camper.gallery.map((image, k = camper._id) => (
+          {camper.gallery.map((image, k = camper.id) => (
             <img
               key={k}
               src={image.original}
@@ -141,7 +133,7 @@ export default function CatalogItemPage() {
                 Features
               </NavLink>
             </li>
-            
+
             <li className="leading-[1.2]">
               <NavLink
                 className={({ isActive }) =>

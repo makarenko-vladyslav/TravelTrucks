@@ -8,7 +8,7 @@ export default function Features() {
   const campers = campersData.items;
 
   const { id } = useParams<{ id: string }>();
-  const camper = campers.find((camper) => camper._id === id);
+  const camper = campers.find((camper) => camper.id === id);
   const specs = camper?.specs || {};
 
   const splitValue = (value) => {

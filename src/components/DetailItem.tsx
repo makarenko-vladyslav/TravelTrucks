@@ -62,7 +62,6 @@ interface DetailItemProps {
 const DetailItem: React.FC<DetailItemProps> = ({ detailKey, value }) => {
   const Icon = getIcon(detailKey, value);
 
-  // Check if value should be displayed
   const shouldDisplay =
     typeof value === "boolean"
       ? value
@@ -76,14 +75,13 @@ const DetailItem: React.FC<DetailItemProps> = ({ detailKey, value }) => {
     return null;
   }
 
-  const getValue = (value) => {
-    return typeof value === "boolean" ? detailKey : value.toString();
+  const getValue = (value: string | boolean | number | undefined) => {
+    return typeof value === "boolean" ? detailKey : value?.toString() ?? "";
   };
 
   return (
     <li className="flex justify-center items-center gap-2 px-[18px] py-3 max-h-12 bg-badges rounded-full">
       {Icon && <Icon className="w-6 h-auto" />}
-
       <span className="capitalize">{getValue(value)}</span>
     </li>
   );
