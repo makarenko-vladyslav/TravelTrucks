@@ -96,17 +96,29 @@
         {
           "thumb": "https://ftp.goit.study/img/campers-test-task/2-3.webp",
           "original": "https://ftp.goit.study/img/campers-test-task/2-3.webp"
+        },
+        {
+          "thumb": "https://ftp.goit.study/img/campers-test-task/3-1.webp",
+          "original": "https://ftp.goit.study/img/campers-test-task/3-1.webp"
+        },
+        {
+          "thumb": "https://ftp.goit.study/img/campers-test-task/3-2.webp",
+          "original": "https://ftp.goit.study/img/campers-test-task/3-2.webp"
+        },
+        {
+          "thumb": "https://ftp.goit.study/img/campers-test-task/3-3.webp",
+          "original": "https://ftp.goit.study/img/campers-test-task/3-3.webp"
         }
       ],
       "reviews": [
         {
           "reviewer_name": "Alice",
-          "reviewer_rating": 5,
+          "reviewer_rating": 1.5,
           "comment": "The Cruise America C-21 exceeded our expectations! Compact yet spacious, it's perfect for a couple's getaway. The kitchen facilities were impressive, and the bathroom setup was convenient. Highly recommended for a cozy and memorable road trip."
         },
         {
           "reviewer_name": "Bob",
-          "reviewer_rating": 3,
+          "reviewer_rating": 3.5,
           "comment": "Decent motorhome for the price. The Cruise America C-21 provided a comfortable stay, but the lack of a TV and CD player was a downside for entertainment. Overall, a satisfactory experience for a short trip."
         }
       ]

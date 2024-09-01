@@ -43,8 +43,9 @@ html {
 
 img {
   max-width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+  -webkit-user-drag: none;
 }
 
 ul,
@@ -59,12 +60,23 @@ a {
   cursor: pointer;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+button {
+  color: var(--color-main);
+}
+
 button,
 input,
 textarea,
 select {
   font: inherit;
-  border: none;
   background: none;
   padding: 0;
   margin: 0;
@@ -86,10 +98,27 @@ textarea {
   color: var(--color-button-hover);
 }
 
+.details-active::after {
+  content: "";
+  position: absolute;
+  bottom: -27.5px;
+  left: 0;
+  width: 85px;
+  height: 6px;
+  z-index: 1;
+  background-color: var(--color-button);
+  cursor: default;
+  opacity: 1;
+
+  transition: opacity var(--animation);
+}
+
 .bg-hero {
+  background-color: var(--color-text);
   background-image: url("./assets/images/home.png");
   background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 768px),
@@ -103,11 +132,54 @@ textarea {
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
+
+.wrapper {
+  padding: 32px 16px;
+
+  @media screen and (min-width: 768px) {
+    padding: 48px 24px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding: 48px 64px;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -320px;
+  bottom: 0;
+  width: 320px;
+  background-color: var(--color-main);
+  color: var(--color-white);
+  overflow-y: auto;
+  opacity: 0.95;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  -ms-backdrop-filter: blur(10px);
+  transition: left 250ms linear;
+
+  @media screen and (min-width: 768px) {
+    position: static;
+    width: 360px;
+    background-color: transparent;
+    color: var(--color-main);
+    opacity: 1;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    -moz-backdrop-filter: none;
+    -ms-backdrop-filter: none;
+  }
+}
+
+.show-sidebar {
+  left: 0;
+}
+
 /* 
 @media screen and (min-width: 375px) {
   .container {
