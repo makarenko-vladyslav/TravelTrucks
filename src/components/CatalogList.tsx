@@ -1,5 +1,4 @@
-// CatalogList.tsx
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import Button from "./Button";
@@ -10,7 +9,6 @@ import {
   selectCampers,
   selectLoading,
   selectFilters,
-  selectFavorites,
   selectCurrentPage,
   selectItemsPerPage,
 } from "../redux/selectors";
@@ -21,7 +19,6 @@ export default function CatalogList() {
   const campers = useSelector(selectCampers);
   const loading = useSelector(selectLoading);
   const filters = useSelector(selectFilters);
-  const favorites = useSelector(selectFavorites);
   const currentPage = useSelector(selectCurrentPage);
   const itemsPerPage = useSelector(selectItemsPerPage);
 
@@ -43,11 +40,7 @@ export default function CatalogList() {
         <>
           <ul className="grid gap-8 w-full">
             {campers.map((camper) => (
-              <CatalogListItem
-                key={camper.id}
-                camper={camper}
-                isFavorite={favorites.includes(camper.id)}
-              />
+              <CatalogListItem key={camper.id} camper={camper} />
             ))}
           </ul>
           <Button
