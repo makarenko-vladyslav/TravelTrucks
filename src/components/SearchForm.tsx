@@ -16,7 +16,10 @@ import {
   BsGrid3X3Gap,
 } from "react-icons/bs";
 
+import { SearchFormValues } from "../types";
 import Button from "./Button";
+import { useDispatch } from "react-redux";
+import { setFilters } from "../redux/campersSlice";
 
 const validationSchema = Yup.object({
   location: Yup.string(),
@@ -35,6 +38,7 @@ const validationSchema = Yup.object({
 });
 
 export default function SearchForm() {
+  // const dispatch = useDispatch();
   const sidebar = document.querySelector(".sidebar");
 
   sidebar?.classList.toggle("show-sidebar");
@@ -42,8 +46,6 @@ export default function SearchForm() {
   const handleClick = () => {
     sidebar?.classList.toggle("show-sidebar");
   };
-
-  const handleSubmit = (values) => {};
 
   return (
     <aside className="sidebar">
@@ -66,9 +68,7 @@ export default function SearchForm() {
           water: false,
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          handleSubmit(values);
-        }}
+        // onSubmit={handleSubmit}
       >
         {({ values }) => (
           <Form className="w-[300px] lap:w-[360px] col-span-1">
@@ -128,7 +128,6 @@ export default function SearchForm() {
                 <label className="custom-label">
                   <Field type="checkbox" name="AC" className="hidden" />
                   <PiWind className="w-8 h-auto mb-2.5" />
-
                   <span className="font-medium">AC</span>
                 </label>
 
@@ -258,7 +257,7 @@ export default function SearchForm() {
               </label>
             </div>
 
-            <Button width="166px" className="text-white">
+            <Button width="166px" className="text-white" type="submit">
               Search
             </Button>
           </Form>

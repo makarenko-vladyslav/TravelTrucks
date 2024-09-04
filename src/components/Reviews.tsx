@@ -1,25 +1,19 @@
 import React from "react";
-import campersData from "../data/campers.json";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import BookingForm from "./BookingForm";
 
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import { RootState } from "../redux/store";
+import { Camper } from "../types";
 
-type Review = {
-  reviewer_name: string;
-  reviewer_rating: number;
-  comment: string;
-};
-
-type Camper = {
-  id: string;
-  reviews: Review[];
-};
-
-export default function Reviews() {
-  const campers = campersData.items as Camper[];
-
+const Reviews: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+
+  const campers = useSelector(
+    (state: RootState) => state.campers.items
+  ) as Camper[];
+
   const camper = campers.find((camper) => camper.id === id);
 
   const renderStars = (rating: number) => {
@@ -70,4 +64,6 @@ export default function Reviews() {
       <BookingForm />
     </div>
   );
-}
+};
+
+export default Reviews;

@@ -1,9 +1,13 @@
 import React from "react";
 
-export default function Loader() {
+interface LoaderProps {
+  className?: string;
+}
+
+export default function Loader({ className = "" }: LoaderProps) {
   return (
-    <div className="flex justify-center items-center h-full">
-      <div className="loader"></div>
+    <div className={`flex justify-center items-center h-full ${className}`}>
+      <span className="loader"></span>
     </div>
   );
 }

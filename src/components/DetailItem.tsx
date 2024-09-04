@@ -15,7 +15,6 @@ import {
   TbManualGearboxFilled,
 } from "react-icons/tb";
 
-// Function to get the appropriate icon based on detail key and value
 const getIcon = (key: string, value: string | boolean | number | undefined) => {
   switch (key) {
     case "AC":
@@ -63,20 +62,18 @@ const DetailItem: React.FC<DetailItemProps> = ({ detailKey, value }) => {
   const Icon = getIcon(detailKey, value);
 
   const shouldDisplay =
-    typeof value === "boolean"
-      ? value
-      : typeof value === "string"
-      ? Boolean(value.trim())
-      : typeof value === "number"
-      ? true
-      : false;
+    value !== undefined &&
+    (typeof value === "boolean" ? value : String(value).trim().length > 0);
 
   if (!shouldDisplay) {
     return null;
   }
 
   const getValue = (value: string | boolean | number | undefined) => {
-    return typeof value === "boolean" ? detailKey : value?.toString() ?? "";
+    if (typeof value === "boolean") {
+      return value ? detailKey : "";
+    }
+    return value?.toString() ?? "";
   };
 
   return (

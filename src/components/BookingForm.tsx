@@ -1,9 +1,9 @@
 import React from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import CustomDateField from "./CustomDateField";
 import Button from "./Button";
 
 interface BookingFormValues {
@@ -30,15 +30,18 @@ const validationSchema = Yup.object({
 });
 
 export default function BookingForm() {
-  const onSubmit = (values: BookingFormValues, { resetForm }: any) => {
+  const onSubmit = (
+    values: BookingFormValues,
+    { resetForm }: FormikHelpers<BookingFormValues>
+  ) => {
     toast.success("Booking successful!");
     resetForm();
   };
 
   return (
-    <div className="px-14 py-11 border border-grayLight rounded-lg w-[641px] h-fit">
+    <div className="px-14 py-11 border border-grayLight h-full rounded-lg w-[641px]">
       <h2 className="text-xl font-semibold mb-2">Book your campervan now</h2>
-      <p className="text-text mb-6">
+      <p className="text-gray-700 mb-6">
         Stay connected! We are always ready to help you.
       </p>
 
@@ -47,19 +50,18 @@ export default function BookingForm() {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        <Form className="relative flex flex-col gap-[14px] justify-center items-center">
+        <Form className="relative flex flex-col gap-[14px] h-full">
           <span className="w-full relative">
             <Field
               name="name"
               type="text"
               placeholder="Name*"
-              className="w-full p-[18px] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-text bg-inputs"
+              className="w-full p-[18px] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-text bg-inputs mb-[10px]"
             />
-
             <ErrorMessage
               name="name"
               component="span"
-              className="absolute z-10 bottom-[-14px] left-5 text-button text-[12px]"
+              className="absolute left-4 text-button text-sm"
             />
           </span>
 
@@ -68,40 +70,35 @@ export default function BookingForm() {
               name="email"
               type="email"
               placeholder="Email*"
-              className="w-full p-[18px] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-text bg-inputs"
+              className="w-full p-[18px] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-text bg-inputs mb-[10px]"
             />
-
             <ErrorMessage
               name="email"
               component="span"
-              className="absolute z-10 bottom-[-14px] left-5 text-button text-[12px]"
+              className="absolute left-4 text-button text-sm"
             />
           </span>
 
           <span className="w-full relative">
             <Field
               name="bookingDate"
-              type="date"
               placeholder="Booking date*"
-              className="w-full p-[18px] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-text bg-inputs"
+              component={CustomDateField}
             />
-
             <ErrorMessage
               name="bookingDate"
               component="span"
-              className="absolute z-10 bottom-[-14px] left-5 text-button text-[12px]"
+              className="absolute left-4 text-button text-sm"
             />
           </span>
 
-          <span className="w-full relative">
+          <span className="w-full relative ">
             <Field
               name="comment"
               as="textarea"
               placeholder="Comment"
-              rows={4}
               className="w-full p-[18px] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-text bg-inputs mb-[10px]"
             />
-
             <ErrorMessage
               name="comment"
               component="span"

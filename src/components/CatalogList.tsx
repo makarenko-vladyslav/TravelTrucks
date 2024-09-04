@@ -4,33 +4,36 @@ import { AppDispatch } from "../redux/store";
 import Button from "./Button";
 import CatalogListItem from "./CatalogListItem";
 import Loader from "./Loader";
-import { fetchCampers } from "../utils/api";
+
 import {
   selectCampers,
   selectLoading,
   selectFilters,
-  selectCurrentPage,
-  selectItemsPerPage,
+  selectLimit,
+  selectPage,
 } from "../redux/selectors";
-import { loadMore } from "../redux/camperSlice";
+import { getCampers } from "../redux/operations";
+import { setPage } from "../redux/filtersSlice";
 
 export default function CatalogList() {
+  // const [page, setPage] = useState(1);
+  // const limit = 2;
+
   const dispatch: AppDispatch = useDispatch();
   const campers = useSelector(selectCampers);
   const loading = useSelector(selectLoading);
   const filters = useSelector(selectFilters);
-  const currentPage = useSelector(selectCurrentPage);
-  const itemsPerPage = useSelector(selectItemsPerPage);
+  const limit = useSelector(selectLimit);
+  const page = useSelector(selectPage);
+  const isLastPage = page === Math.ceil(campers.length / limit);
 
   useEffect(() => {
-    dispatch(
-      fetchCampers({ ...filters, page: currentPage, limit: itemsPerPage })
-    );
-  }, [dispatch, filters, currentPage, itemsPerPage]);
+    dispatch(getCampers({ page, limit, ...filters }));
 
-  const handleLoadMore = () => {
-    dispatch(loadMore());
-  };
+    console.log("lastPage", isLastPage);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, page, filters]);
 
   return (
     <section className="campers-list">
@@ -43,13 +46,16 @@ export default function CatalogList() {
               <CatalogListItem key={camper.id} camper={camper} />
             ))}
           </ul>
-          <Button
-            onClick={handleLoadMore}
-            width="145px"
-            className="mx-auto text-main bg-white border border-grayLight hover:bg-white hover:border-buttonHover"
-          >
-            Show more
-          </Button>
+
+          {isLastPage && (
+            <Button
+              // onClick={() => dispatch(setPage(page + 1))}
+              width="145px"
+              className="mx-auto text-main bg-white border border-grayLight hover:bg-white hover:border-buttonHover"
+            >
+              Show more
+            </Button>
+          )}
         </>
       )}
     </section>
