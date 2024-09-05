@@ -3,11 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const filtersSlice = createSlice({
   name: "filters",
   initialState: {
-    favoriteCampers: [],
-    favorites: false,
     page: 1,
     limit: 4,
     filters: {},
+    favorites: false,
   },
   reducers: {
     setFavorites: (state, action) => {

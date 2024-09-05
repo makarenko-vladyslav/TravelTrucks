@@ -1,5 +1,4 @@
-import { createSelector } from "@reduxjs/toolkit";
-
+export const selectTotalCampers = (state) => state.campers.totalCampers;
 export const selectCampers = (state) => state.campers.campers;
 export const selectLoading = (state) => state.campers.loading;
 export const selectError = (state) => state.campers.error;
@@ -7,7 +6,6 @@ export const selectError = (state) => state.campers.error;
 export const selectLimit = (state) => state.filters.limit;
 export const selectPage = (state) => state.filters.page;
 export const selectFilters = (state) => state.filters;
-
 
 // export const selectFavoritesOnly = (state) => state.filters.favoritesOnly;
 

@@ -10,30 +10,29 @@ import {
   selectLoading,
   selectFilters,
   selectLimit,
+  selectTotalCampers,
   selectPage,
 } from "../redux/selectors";
 import { getCampers } from "../redux/operations";
 import { setPage } from "../redux/filtersSlice";
 
 export default function CatalogList() {
-  // const [page, setPage] = useState(1);
-  // const limit = 2;
-
   const dispatch: AppDispatch = useDispatch();
+
+  const totalCampers = useSelector(selectTotalCampers);
   const campers = useSelector(selectCampers);
   const loading = useSelector(selectLoading);
+
   const filters = useSelector(selectFilters);
   const limit = useSelector(selectLimit);
   const page = useSelector(selectPage);
-  const isLastPage = page === Math.ceil(campers.length / limit);
+  const isLastPage = Math.ceil(totalCampers / limit) <= page;
 
   useEffect(() => {
     dispatch(getCampers({ page, limit, ...filters }));
 
-    console.log("lastPage", isLastPage);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, page, filters]);
+  }, [dispatch, page, limit, filters]);
 
   return (
     <section className="campers-list">
@@ -47,9 +46,9 @@ export default function CatalogList() {
             ))}
           </ul>
 
-          {isLastPage && (
+          {!isLastPage && (
             <Button
-              // onClick={() => dispatch(setPage(page + 1))}
+              onClick={() => dispatch(setPage(page + 1))}
               width="145px"
               className="mx-auto text-main bg-white border border-grayLight hover:bg-white hover:border-buttonHover"
             >
