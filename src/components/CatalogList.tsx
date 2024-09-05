@@ -42,7 +42,10 @@ export default function CatalogList() {
         <>
           <ul className="grid gap-8 w-full">
             {campers.map((camper) => (
-              <CatalogListItem key={camper.id} camper={camper} />
+              <CatalogListItem
+                key={camper.id + Math.random()}
+                camper={camper}
+              />
             ))}
           </ul>
 
