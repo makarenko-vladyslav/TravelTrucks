@@ -25,12 +25,13 @@ const allowedKeys = [
   "water",
 ];
 
-const CatalogListItem: React.FC<CatalogListItemProps> = ({ camper }) => {
+const CatalogListItem: React.FC<CatalogListItemProps> = ({
+  camper,
+  toggleFavorite,
+  isFavorite,
+}) => {
   return (
-    <li
-      key={camper.id}
-      className="grid grid-cols-2 lap:grid-cols-[300px_1fr] gap-6 border border-grayLight p-6 rounded-[20px] w-full min-h-[368px] overflow-hidden"
-    >
+    <>
       <img
         src={camper.gallery[0]?.thumb}
         alt={`${camper.name} photo`}
@@ -44,7 +45,11 @@ const CatalogListItem: React.FC<CatalogListItemProps> = ({ camper }) => {
 
           <span className="flex align-center text-2xl leading-[1.33] font-semibold gap-3">
             €{camper.price.toFixed(2)}
-            <BsSuitHeart className="self-center -translate-y-1.5 hover:fill-button" />
+            <BsSuitHeart
+              className={`cursor-pointer self-center -translate-y-1.5 hover:fill-button 
+                ${isFavorite ? "fill-button" : ""}`}
+              onClick={() => toggleFavorite(camper.id)}
+            />
           </span>
         </div>
 
@@ -77,11 +82,11 @@ const CatalogListItem: React.FC<CatalogListItemProps> = ({ camper }) => {
 
         <Link to={`/catalog/${camper.id}`}>
           <Button className="text-white" width="166px">
-            Show more
+            Load more
           </Button>
         </Link>
       </div>
-    </li>
+    </>
   );
 };
 

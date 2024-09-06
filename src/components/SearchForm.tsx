@@ -1,6 +1,6 @@
-import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { CiMap } from "react-icons/ci";
 import { IoClose } from "react-icons/io5";
 import { GiGasStove } from "react-icons/gi";
 import { TbMicrowave } from "react-icons/tb";
@@ -16,10 +16,9 @@ import {
   BsGrid3X3Gap,
 } from "react-icons/bs";
 
-import { SearchFormValues } from "../types";
 import Button from "./Button";
 import { useDispatch } from "react-redux";
-import { setFilters } from "../redux/campersSlice";
+import { cleanFilters } from "../utils/cleanFilters";
 
 const validationSchema = Yup.object({
   location: Yup.string(),
@@ -38,13 +37,18 @@ const validationSchema = Yup.object({
 });
 
 export default function SearchForm() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const sidebar = document.querySelector(".sidebar");
 
   sidebar?.classList.toggle("show-sidebar");
 
   const handleClick = () => {
     sidebar?.classList.toggle("show-sidebar");
+  };
+
+  const handleSubmit = (values) => {
+    // dispatch({ type: "SET_FILTERS", payload: values });
+    console.log(cleanFilters(values));
   };
 
   return (
@@ -68,7 +72,7 @@ export default function SearchForm() {
           water: false,
         }}
         validationSchema={validationSchema}
-        // onSubmit={handleSubmit}
+        onSubmit={handleSubmit}
       >
         {({ values }) => (
           <Form className="w-[300px] lap:w-[360px] col-span-1">
@@ -77,61 +81,116 @@ export default function SearchForm() {
                 Location
               </label>
 
+              <CiMap />
+
               <Field
                 type="text"
                 id="location"
                 name="location"
                 placeholder="Enter location"
-                className="border rounded-xl w-full py-4 px-5 bg-inputs placeholder:text-main"
+                className="border-none rounded-xl w-full py-4 px-5 bg-inputs placeholder:text-main"
               />
             </div>
 
             <div className="mb-10">
-              <label htmlFor="transmission" className="text-gray mb-2 block">
-                Transmission
-              </label>
-              <Field
-                as="select"
-                id="transmission"
-                name="transmission"
-                className="border rounded-xl w-full py-4 px-5 bg-inputs"
-              >
-                <option value="">Select Transmission</option>
-                <option value="automatic">Automatic</option>
-                <option value="manual">Manual</option>
-              </Field>
+              <h3 className="text-text font-medium mb-8 block">Filters</h3>
+
+              <h3 className="after-line">Transmission</h3>
+              <div className="grid grid-cols-2 gap-4 text-center pt-6">
+                <label
+                  className={`custom-label p-1.5 border-2 rounded-lg ${
+                    values.transmission === "automatic" ? "border-button" : ""
+                  }`}
+                >
+                  <Field
+                    type="radio"
+                    name="transmission"
+                    value="automatic"
+                    className="hidden"
+                  />
+                  <span>Automatic</span>
+                </label>
+
+                <label
+                  className={`custom-label p-1.5 border-2 rounded-lg ${
+                    values.transmission === "manual" ? "border-button" : ""
+                  }`}
+                >
+                  <Field
+                    type="radio"
+                    name="transmission"
+                    value="manual"
+                    className="hidden"
+                  />
+                  <span>Manual</span>
+                </label>
+              </div>
             </div>
 
             <div className="mb-10">
-              <label htmlFor="engine" className="text-gray mb-2 block">
-                Engine
-              </label>
-              <Field
-                as="select"
-                id="engine"
-                name="engine"
-                className="border rounded-xl w-full py-4 px-5 bg-inputs"
-              >
-                <option value="">Select Engine</option>
-                <option value="diesel">Diesel</option>
-                <option value="petrol">Petrol</option>
-                <option value="electric">Electric</option>
-              </Field>
-            </div>
+              <h3 className="after-line">Engine</h3>
+              <div className="grid grid-cols-3 gap-4 text-center pt-6">
+                <label
+                  className={`custom-label p-1.5 border-2 rounded-lg ${
+                    values.engine === "diesel" ? "border-button" : ""
+                  }`}
+                >
+                  <Field
+                    type="radio"
+                    name="engine"
+                    value="diesel"
+                    className="hidden"
+                  />
+                  <span>Diesel</span>
+                </label>
 
-            <span className="text-text font-medium mb-8 block">Filters</span>
+                <label
+                  className={`custom-label p-1.5 border-2 rounded-lg ${
+                    values.engine === "petrol" ? "border-button" : ""
+                  }`}
+                >
+                  <Field
+                    type="radio"
+                    name="engine"
+                    value="petrol"
+                    className="hidden"
+                  />
+                  <span>Petrol</span>
+                </label>
+
+                <label
+                  className={`custom-label p-1.5 border-2 rounded-lg ${
+                    values.engine === "electric" ? "border-button" : ""
+                  }`}
+                >
+                  <Field
+                    type="radio"
+                    name="engine"
+                    value="electric"
+                    className="hidden"
+                  />
+                  <span>Electric</span>
+                </label>
+              </div>
+            </div>
 
             <div>
               <h3 className="after-line">Vehicle equipment</h3>
 
               <div className="grid grid-cols-3 gap-4 text-center pt-6 pb-8">
-                <label className="custom-label">
+                <label
+                  className={`custom-label 
+                    ${values.AC ? "border-button" : ""}`}
+                >
                   <Field type="checkbox" name="AC" className="hidden" />
                   <PiWind className="w-8 h-auto mb-2.5" />
                   <span className="font-medium">AC</span>
                 </label>
 
-                <label className="custom-label">
+                <label
+                  className={`custom-label 
+                    ${values.bathroom ? "border-button" : ""}`}
+                >
                   <Field
                     type="checkbox"
                     name="bathroom"
@@ -142,7 +201,10 @@ export default function SearchForm() {
                   <span>Bathroom</span>
                 </label>
 
-                <label className="custom-label">
+                <label
+                  className={`custom-label 
+                    ${values.kitchen ? "border-button" : ""}`}
+                >
                   <Field
                     type="checkbox"
                     name="kitchen"
@@ -153,7 +215,10 @@ export default function SearchForm() {
                   <span>Kitchen</span>
                 </label>
 
-                <label className="custom-label">
+                <label
+                  className={`custom-label 
+                    ${values.TV ? "border-button" : ""}`}
+                >
                   <Field
                     type="checkbox"
                     name="TV"
@@ -164,7 +229,10 @@ export default function SearchForm() {
                   <span>TV</span>
                 </label>
 
-                <label className="custom-label">
+                <label
+                  className={`custom-label 
+                    ${values.radio ? "border-button" : ""}`}
+                >
                   <Field
                     type="checkbox"
                     name="radio"
@@ -175,7 +243,10 @@ export default function SearchForm() {
                   <span>Radio</span>
                 </label>
 
-                <label className="custom-label">
+                <label
+                  className={`custom-label 
+                    ${values.refrigerator ? "border-button" : ""}`}
+                >
                   <Field
                     type="checkbox"
                     name="refrigerator"
@@ -186,7 +257,10 @@ export default function SearchForm() {
                   <span>Refrigerator</span>
                 </label>
 
-                <label className="custom-label">
+                <label
+                  className={`custom-label 
+                    ${values.microwave ? "border-button" : ""}`}
+                >
                   <Field
                     type="checkbox"
                     name="microwave"
@@ -197,7 +271,10 @@ export default function SearchForm() {
                   <span>Microwave</span>
                 </label>
 
-                <label className="custom-label">
+                <label
+                  className={`custom-label 
+                    ${values.gas ? "border-button" : ""}`}
+                >
                   <Field
                     type="checkbox"
                     name="gas"
@@ -208,7 +285,10 @@ export default function SearchForm() {
                   <span>Gas</span>
                 </label>
 
-                <label className="custom-label">
+                <label
+                  className={`custom-label 
+                    ${values.water ? "border-button" : ""}`}
+                >
                   <Field
                     type="checkbox"
                     name="water"
@@ -223,7 +303,11 @@ export default function SearchForm() {
 
             <h3 className="after-line">Vehicle Type</h3>
             <div className="grid grid-cols-3 gap-4 text-center pt-6 pb-10">
-              <label className="custom-label">
+              <label
+                className={`custom-label p-1.5 border-2 rounded-lg ${
+                  values.vehicleType === "Van" ? "border-button" : ""
+                }`}
+              >
                 <Field
                   type="radio"
                   name="vehicleType"
@@ -234,7 +318,13 @@ export default function SearchForm() {
                 <span>Van</span>
               </label>
 
-              <label className="custom-label p-1.5">
+              <label
+                className={`custom-label p-1.5 border-2 rounded-lg ${
+                  values.vehicleType === "Fully integrated"
+                    ? "border-button"
+                    : ""
+                }`}
+              >
                 <Field
                   type="radio"
                   name="vehicleType"
@@ -245,7 +335,11 @@ export default function SearchForm() {
                 <span className="leading-[1]">Fully integrated</span>
               </label>
 
-              <label className="custom-label">
+              <label
+                className={`custom-label p-1.5 border-2 rounded-lg ${
+                  values.vehicleType === "Alcove" ? "border-button" : ""
+                }`}
+              >
                 <Field
                   type="radio"
                   name="vehicleType"

@@ -12,7 +12,7 @@ const Reviews = lazy(() => import("../components/Reviews"));
 
 export default function App() {
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<Loader fullScreen text="Loading" />}>
       <div>
         <Routes>
           <Route path="/" element={<HomePage />} />

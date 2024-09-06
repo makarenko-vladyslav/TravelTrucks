@@ -1,65 +1,65 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../redux/store";
+import { selectCampers } from "../redux/selectors";
+import { fetchCampers } from "../redux/operations";
+import { nextPage, toggleFavorite } from "../redux/campersSlice";
 import Button from "./Button";
 import CatalogListItem from "./CatalogListItem";
+import { AppDispatch } from "../redux/store";
 import Loader from "./Loader";
 
-import {
-  selectCampers,
-  selectLoading,
-  selectFilters,
-  selectLimit,
-  selectTotalCampers,
-  selectPage,
-} from "../redux/selectors";
-import { getCampers } from "../redux/operations";
-import { setPage } from "../redux/filtersSlice";
-
-export default function CatalogList() {
+export default function CamperCardCollection() {
   const dispatch: AppDispatch = useDispatch();
+  const { hasNextPage, campers, loading, error, favorites } =
+    useSelector(selectCampers);
 
-  const totalCampers = useSelector(selectTotalCampers);
-  const campers = useSelector(selectCampers);
-  const loading = useSelector(selectLoading);
+  const handleLoadMore = () => {
+    if (hasNextPage) {
+      dispatch(nextPage());
+      dispatch(fetchCampers());
+    }
+  };
 
-  const filters = useSelector(selectFilters);
-  const limit = useSelector(selectLimit);
-  const page = useSelector(selectPage);
-  const isLastPage = Math.ceil(totalCampers / limit) <= page;
+  const handleToggleFavorite = (camperId: number) => {
+    dispatch(toggleFavorite(camperId));
+  };
 
-  useEffect(() => {
-    dispatch(getCampers({ page, limit, ...filters }));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, page, limit, filters]);
+  const isFavorite = (camperId: number) => {
+    return favorites.some((favorite) => favorite.id === camperId);
+  };
 
   return (
     <section className="campers-list">
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
-          <ul className="grid gap-8 w-full">
-            {campers.map((camper) => (
-              <CatalogListItem
-                key={camper.id + Math.random()}
-                camper={camper}
-              />
-            ))}
-          </ul>
-
-          {!isLastPage && (
-            <Button
-              onClick={() => dispatch(setPage(page + 1))}
-              width="145px"
-              className="mx-auto text-main bg-white border border-grayLight hover:bg-white hover:border-buttonHover"
+      <>
+        <ul className="grid gap-8 w-full mb-10">
+          {campers.map((camper) => (
+            <li
+              key={camper.id}
+              className="grid grid-cols-2 lap:grid-cols-[300px_1fr] gap-6 border border-grayLight p-6 rounded-[20px] w-full min-h-[368px] overflow-hidden"
             >
-              Show more
-            </Button>
-          )}
-        </>
-      )}
+              <CatalogListItem
+                camper={camper}
+                toggleFavorite={handleToggleFavorite}
+                isFavorite={isFavorite(camper.id)}
+              />
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex justify-center items-center ">
+          {hasNextPage &&
+            (loading ? (
+              <Loader />
+            ) : (
+              <Button
+                onClick={handleLoadMore}
+                width="145px"
+                className="text-main bg-white border border-grayLight hover:bg-white hover:border-buttonHover"
+              >
+                Show more
+              </Button>
+            ))}
+        </div>
+      </>
     </section>
   );
 }
