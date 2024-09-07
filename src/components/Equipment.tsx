@@ -1,5 +1,4 @@
 import React from "react";
-import { Field } from "formik";
 
 import { GiGasStove } from "react-icons/gi";
 import { HiOutlineRadio } from "react-icons/hi2";
@@ -55,13 +54,17 @@ const getIcon = (key: string, value: string | boolean | number | undefined) => {
   }
 };
 
-interface DetailItemProps {
+interface ItemDetailsIconsProps {
   detailKey: string;
   value: string | boolean | number | undefined;
   style?: string;
 }
 
-const DetailItem: React.FC<DetailItemProps> = ({ detailKey, value, style }) => {
+const ItemDetailsIcons: React.FC<ItemDetailsIconsProps> = ({
+  detailKey,
+  value,
+  style,
+}) => {
   const Icon = getIcon(detailKey, value);
 
   const shouldDisplay =
@@ -81,28 +84,12 @@ const DetailItem: React.FC<DetailItemProps> = ({ detailKey, value, style }) => {
 
   return (
     <>
-      {style === "search" ? (
-        <label
-          className={`custom-label p-1.5 border-2 rounded-lg ${
-            values.transmission === "automatic" ? "border-button" : ""
-          }`}
-        >
-          <Field
-            type="radio"
-            name="transmission"
-            value="automatic"
-            className="hidden"
-          />
-          <span>Automatic</span>
-        </label>
-      ) : (
-        <li className="flex justify-center items-center gap-2 px-[18px] py-3 max-h-12 bg-badges rounded-full">
-          {Icon && <Icon className="w-6 h-auto" />}
-          <span className="capitalize">{getValue(value)}</span>
-        </li>
-      )}
+      <li className="flex justify-center items-center gap-2 px-[18px] py-3 max-h-12 bg-badges rounded-full">
+        {Icon && <Icon className="w-6 h-auto" />}
+        <span className="capitalize">{getValue(value)}</span>
+      </li>
     </>
   );
 };
 
-export default DetailItem;
+export default ItemDetailsIcons;

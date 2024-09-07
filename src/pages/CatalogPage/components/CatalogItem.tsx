@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button from "./Button";
+import Button from "../../../components/Button";
 import { FaStar } from "react-icons/fa";
-import { BsSuitHeart } from "react-icons/bs";
 import { CiMap } from "react-icons/ci";
-import DetailItem from "./DetailItem";
-import { Camper } from "../types";
+import ItemDetailsIcons from "../../../components/Equipment";
+import { Camper } from "../../../types";
+import FavoriteButton from "../../../components/FavoriteButton";
 
-interface CatalogListItemProps {
+interface CatalogItemProps {
   camper: Camper;
 }
 
@@ -25,11 +25,7 @@ const allowedKeys = [
   "water",
 ];
 
-const CatalogListItem: React.FC<CatalogListItemProps> = ({
-  camper,
-  toggleFavorite,
-  isFavorite,
-}) => {
+const CatalogItem: React.FC<CatalogItemProps> = ({ camper }) => {
   return (
     <>
       <img
@@ -45,11 +41,7 @@ const CatalogListItem: React.FC<CatalogListItemProps> = ({
 
           <span className="flex align-center text-2xl leading-[1.33] font-semibold gap-3">
             €{camper.price.toFixed(2)}
-            <BsSuitHeart
-              className={`cursor-pointer self-center -translate-y-1.5 hover:fill-button 
-                ${isFavorite ? "fill-button" : ""}`}
-              onClick={() => toggleFavorite(camper.id)}
-            />
+            <FavoriteButton favoriteId={camper.id} />
           </span>
         </div>
 
@@ -76,13 +68,13 @@ const CatalogListItem: React.FC<CatalogListItemProps> = ({
           {Object.entries(camper)
             .filter(([key]) => allowedKeys.includes(key))
             .map(([key, value]) => (
-              <DetailItem key={key} detailKey={key} value={value} />
+              <ItemDetailsIcons key={key} detailKey={key} value={value} />
             ))}
         </ul>
 
         <Link to={`/catalog/${camper.id}`}>
           <Button className="text-white" width="166px">
-            Load more
+            Show more
           </Button>
         </Link>
       </div>
@@ -90,4 +82,4 @@ const CatalogListItem: React.FC<CatalogListItemProps> = ({
   );
 };
 
-export default CatalogListItem;
+export default CatalogItem;

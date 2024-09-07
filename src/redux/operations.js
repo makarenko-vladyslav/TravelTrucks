@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 axios.defaults.baseURL = "https://66b1f8e71ca8ad33d4f5f63e.mockapi.io";
 
 export const fetchCampers = createAsyncThunk(
-  "campers/fetchAll",
+  "campers/fetchCampers",
   async (_, thunkAPI) => {
     const { campers, filters } = thunkAPI.getState();
 
@@ -22,7 +22,7 @@ export const fetchCampers = createAsyncThunk(
     } catch (error) {
       if (error.response && error.response.status === 404) {
         return thunkAPI.rejectWithValue(
-          "Sorry, there are no campers that match your search criteria"
+          "Sorry, we don't have any campers that match your search criteria`s. Please try again with different filters."
         );
       } else {
         return thunkAPI.rejectWithValue(error.message);

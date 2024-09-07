@@ -1,10 +1,9 @@
-import React from "react";
 import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import CustomDateField from "./CustomDateField";
-import Button from "./Button";
+import CustomDateField from "../components/CustomDateField";
+import Button from "../../../components/Button";
 
 interface BookingFormValues {
   name: string;

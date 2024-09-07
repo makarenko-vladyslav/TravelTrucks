@@ -3,26 +3,37 @@ import * as Yup from "yup";
 import { CiMap } from "react-icons/ci";
 import { IoClose } from "react-icons/io5";
 import { GiGasStove } from "react-icons/gi";
-import { TbMicrowave } from "react-icons/tb";
-import { MdOutlineTv } from "react-icons/md";
 import { HiOutlineRadio } from "react-icons/hi2";
-import { PiBathtub, PiWind } from "react-icons/pi";
+import { PiWind, PiBathtub } from "react-icons/pi";
 import { CgSmartHomeRefrigerator } from "react-icons/cg";
+import {
+  MdOutlineTv,
+  MdLocalGasStation,
+  MdOutlineElectricRickshaw,
+} from "react-icons/md";
+import {
+  TbMicrowave,
+  TbAutomaticGearbox,
+  TbManualGearboxFilled,
+} from "react-icons/tb";
 import {
   BsCupHot,
   BsDroplet,
   BsGrid1X2,
   BsGrid,
   BsGrid3X3Gap,
+  BsFuelPumpDiesel,
 } from "react-icons/bs";
 
-import Button from "./Button";
+import Button from "../../../components/Button";
 import { useDispatch } from "react-redux";
-import { cleanFilters } from "../utils/cleanFilters";
+import { cleanFilters } from "../../../utils/cleanFilters";
+import { setFilters } from "../../../redux/filtersSlice";
+import { clearCampers } from "../../../redux/campersSlice";
 
 const validationSchema = Yup.object({
   location: Yup.string(),
-  vehicleType: Yup.string(),
+  form: Yup.string(),
   transmission: Yup.string(),
   engine: Yup.string(),
   AC: Yup.boolean(),
@@ -47,8 +58,13 @@ export default function SearchForm() {
   };
 
   const handleSubmit = (values) => {
-    // dispatch({ type: "SET_FILTERS", payload: values });
-    console.log(cleanFilters(values));
+    const clearFilters = cleanFilters(values);
+
+    dispatch(clearCampers());
+    dispatch(setFilters(clearFilters));
+
+    console.log(clearFilters);
+    
   };
 
   return (
@@ -81,15 +97,17 @@ export default function SearchForm() {
                 Location
               </label>
 
-              <CiMap />
+              <div className="relative">
+                <CiMap className="absolute left-5 top-1/2 transform -translate-y-1/2 size-5 text-main" />
 
-              <Field
-                type="text"
-                id="location"
-                name="location"
-                placeholder="Enter location"
-                className="border-none rounded-xl w-full py-4 px-5 bg-inputs placeholder:text-main"
-              />
+                <Field
+                  type="text"
+                  id="location"
+                  name="location"
+                  placeholder="Kyiv, Ukraine"
+                  className="border-none rounded-xl w-full py-4 pl-12 pr-5 bg-inputs placeholder:text-main" // Важливо: додано padding-left для поля вводу
+                />
+              </div>
             </div>
 
             <div className="mb-10">
@@ -108,7 +126,10 @@ export default function SearchForm() {
                     value="automatic"
                     className="hidden"
                   />
-                  <span>Automatic</span>
+                  <span className="flex flex-col items-center justify-center">
+                    <TbAutomaticGearbox className="w-7 h-auto mb-2.5" />{" "}
+                    Automatic
+                  </span>
                 </label>
 
                 <label
@@ -122,7 +143,10 @@ export default function SearchForm() {
                     value="manual"
                     className="hidden"
                   />
-                  <span>Manual</span>
+                  <span className="flex flex-col items-center justify-center">
+                    <TbManualGearboxFilled className="w-7 h-auto mb-2.5" />{" "}
+                    Manual
+                  </span>
                 </label>
               </div>
             </div>
@@ -141,7 +165,9 @@ export default function SearchForm() {
                     value="diesel"
                     className="hidden"
                   />
-                  <span>Diesel</span>
+                  <span className="flex gap-1 flex-col items-center justify-center">
+                    <BsFuelPumpDiesel className="h-6 w-full mb-2.5" /> Diesel
+                  </span>
                 </label>
 
                 <label
@@ -155,21 +181,27 @@ export default function SearchForm() {
                     value="petrol"
                     className="hidden"
                   />
-                  <span>Petrol</span>
+                  <span className="flex flex-col items-center justify-center">
+                    <MdLocalGasStation className="w-8 h-auto mb-2.5" />
+                    Petrol
+                  </span>
                 </label>
 
                 <label
                   className={`custom-label p-1.5 border-2 rounded-lg ${
-                    values.engine === "electric" ? "border-button" : ""
+                    values.engine === "hybrid" ? "border-button" : ""
                   }`}
                 >
                   <Field
                     type="radio"
                     name="engine"
-                    value="electric"
+                    value="hybrid"
                     className="hidden"
                   />
-                  <span>Electric</span>
+                  <span className="flex flex-col items-center justify-center">
+                    <MdOutlineElectricRickshaw className="w-8 h-auto mb-2.5" />{" "}
+                    Hybrid
+                  </span>
                 </label>
               </div>
             </div>
@@ -305,13 +337,13 @@ export default function SearchForm() {
             <div className="grid grid-cols-3 gap-4 text-center pt-6 pb-10">
               <label
                 className={`custom-label p-1.5 border-2 rounded-lg ${
-                  values.vehicleType === "Van" ? "border-button" : ""
+                  values.form === "panelTruck" ? "border-button" : ""
                 }`}
               >
                 <Field
                   type="radio"
-                  name="vehicleType"
-                  value="Van"
+                  name="form"
+                  value="panelTruck"
                   className="hidden"
                 />
                 <BsGrid1X2 className="w-8 h-auto mb-2.5" />
@@ -320,15 +352,13 @@ export default function SearchForm() {
 
               <label
                 className={`custom-label p-1.5 border-2 rounded-lg ${
-                  values.vehicleType === "Fully integrated"
-                    ? "border-button"
-                    : ""
+                  values.form === "fullyIntegrated" ? "border-button" : ""
                 }`}
               >
                 <Field
                   type="radio"
-                  name="vehicleType"
-                  value="Fully integrated"
+                  name="form"
+                  value="fullyIntegrated"
                   className="hidden"
                 />
                 <BsGrid className="w-8 h-auto mb-2" />
@@ -337,13 +367,13 @@ export default function SearchForm() {
 
               <label
                 className={`custom-label p-1.5 border-2 rounded-lg ${
-                  values.vehicleType === "Alcove" ? "border-button" : ""
+                  values.form === "alcove" ? "border-button" : ""
                 }`}
               >
                 <Field
                   type="radio"
-                  name="vehicleType"
-                  value="Alcove"
+                  name="form"
+                  value="alcove"
                   className="hidden"
                 />
                 <BsGrid3X3Gap className="w-8 h-auto mb-2.5" />

@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Import default styles
-import { CustomDateFieldProps } from "../types";
+import { CustomDateFieldProps } from "../../../types";
 
 const CustomDateField: React.FC<CustomDateFieldProps> = ({
   field,

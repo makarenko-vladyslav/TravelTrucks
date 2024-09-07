@@ -12,7 +12,6 @@ import {
 import storage from "redux-persist/lib/storage";
 import { campersReducer } from "./campersSlice";
 import { filtersReducer } from "./filtersSlice";
-// import { modalReducer } from "./modal/slice.js";
 
 const campersPersistConfig = {
   key: "campers",
@@ -29,7 +28,6 @@ export const store = configureStore({
   reducer: {
     campers: persistedCampersReducer,
     filters: filtersReducer,
-    // modal: modalReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -42,3 +40,5 @@ export const store = configureStore({
 export type AppDispatch = typeof store.dispatch;
 
 export const persistor = persistStore(store);
+
+export type RootState = ReturnType<typeof store.getState>;

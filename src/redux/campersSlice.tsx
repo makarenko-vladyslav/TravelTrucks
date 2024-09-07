@@ -3,6 +3,7 @@ import { fetchCamperById, fetchCampers } from "./operations";
 
 const handlePending = (state) => {
   state.loading = true;
+  state.error = null;
 };
 
 const handleRejected = (state, action) => {
@@ -28,20 +29,21 @@ const campersSlice = createSlice({
     nextPage(state) {
       state.page += 1;
     },
+    clearCampers(state) {
+      state.campers = [];
+      state.page = 1;
+    },
     toggleFavorite(state, action) {
       const camperId = action.payload;
-      const camper = state.campers.find((item) => item.id === camperId);
-
-      if (!camper) return;
 
       const isFavorite = state.favorites.some((item) => item.id === camperId);
 
-      if (isFavorite) {
+      if (!isFavorite) {
+        state.favorites.push({ id: camperId, isFavorite: true });
+      } else {
         state.favorites = state.favorites.filter(
           (item) => item.id !== camperId
         );
-      } else {
-        state.favorites.push(camper);
       }
     },
   },
@@ -78,4 +80,4 @@ const campersSlice = createSlice({
 
 export const campersReducer = campersSlice.reducer;
 
-export const { nextPage, toggleFavorite } = campersSlice.actions;
+export const { nextPage, toggleFavorite, clearCampers } = campersSlice.actions;

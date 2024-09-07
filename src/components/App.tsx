@@ -2,13 +2,13 @@ import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import Loader from "./Loader";
 
-const HomePage = lazy(() => import("../pages/HomePage"));
-const CatalogPage = lazy(() => import("../pages/CatalogPage"));
-const CatalogItemPage = lazy(() => import("../pages/CatalogItemPage"));
+const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
+const CatalogPage = lazy(() => import("../pages/CatalogPage/CatalogPage"));
+const ItemPage = lazy(() => import("../pages/ItemPage/ItemPage"));
 const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));
 
-const Features = lazy(() => import("../components/Features"));
-const Reviews = lazy(() => import("../components/Reviews"));
+const Features = lazy(() => import("../pages/ItemPage/components/Features"));
+const Reviews = lazy(() => import("../pages/ItemPage/components/Reviews"));
 
 export default function App() {
   return (
@@ -17,7 +17,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/catalog" element={<CatalogPage />} />
-          <Route path="/catalog/:id" element={<CatalogItemPage />}>
+          <Route path="/catalog/:id" element={<ItemPage />}>
             <Route path="features" element={<Features />} />
             <Route path="reviews" element={<Reviews />} />
           </Route>

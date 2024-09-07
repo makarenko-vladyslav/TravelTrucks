@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import BookingForm from "./BookingForm";
 
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
-import { RootState } from "../redux/store";
-import { Camper } from "../types";
+import { RootState } from "../../../redux/store";
+import { Camper } from "../../../types";
 
 const Reviews: React.FC = () => {
   const { id } = useParams<{ id: string }>();

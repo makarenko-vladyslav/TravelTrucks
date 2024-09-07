@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import Header from "../components/Header";
-import SearchForm from "../components/SearchForm";
-import CatalogList from "../components/CatalogList";
-import { AppDispatch } from "../redux/store";
-import { fetchCampers } from "../redux/operations";
+import Header from "../../components/Header";
+import SearchForm from "./components/SearchForm";
+import CatalogList from "./components/CatalogList";
+import { AppDispatch } from "../../redux/store";
+import { fetchCampers } from "../../redux/operations";
 
 export default function CatalogPage() {
   const dispatch: AppDispatch = useDispatch();

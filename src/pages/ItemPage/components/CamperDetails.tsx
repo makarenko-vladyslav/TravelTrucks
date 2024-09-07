@@ -1,9 +1,10 @@
 import React from "react";
 import { FaStar } from "react-icons/fa";
 import { CiMap } from "react-icons/ci";
-import { BsSuitHeart } from "react-icons/bs";
+import FavoriteButton from "../../../components/FavoriteButton";
 
 interface CamperDetailsProps {
+  id: number;
   name: string;
   rating: number;
   reviews: {
@@ -16,8 +17,8 @@ interface CamperDetailsProps {
 }
 
 const CamperDetails: React.FC<CamperDetailsProps> = ({
+  id,
   name,
-
   rating,
   reviews,
   location,
@@ -26,7 +27,7 @@ const CamperDetails: React.FC<CamperDetailsProps> = ({
   <>
     <div className="flex justify-between gap-3">
       <h2 className="text-2xl leading-[1.33] font-semibold mb-2">{name}</h2>
-      <BsSuitHeart className="text-2xl self-center hover:fill-button" />
+      <FavoriteButton favoriteId={id} />
     </div>
 
     <div className="flex gap-4 mb-4">

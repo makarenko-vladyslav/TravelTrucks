@@ -2,8 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BookingForm from "./BookingForm";
-import DetailItem from "./DetailItem";
-import { RootState } from "../redux/store";
+import ItemDetailsIcons from "../../../components/Equipment";
+import { RootState } from "../../../redux/store";
 
 const Features: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -68,7 +68,7 @@ const Features: React.FC = () => {
       <div className="w-full max-w-[640px] py-11 px-20 bg-inputs rounded-[10px]">
         <ul className="flex flex-wrap items-start justify-start gap-2 w-full mb-11">
           {Object.entries(booleanDetails).map(([key, value]) => (
-            <DetailItem key={key} detailKey={key} value={value} />
+            <ItemDetailsIcons key={key} detailKey={key} value={value} />
           ))}
         </ul>
 
