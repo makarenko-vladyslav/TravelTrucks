@@ -4,15 +4,12 @@ import { useSelector } from "react-redux";
 import BookingForm from "./BookingForm";
 
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
-import { RootState } from "../../../redux/store";
-import { Camper } from "../../../types";
+import { selectCampers } from "../../../redux/selectors";
 
 const Reviews: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const campers = useSelector(
-    (state: RootState) => state.campers.items
-  ) as Camper[];
+  const { campers } = useSelector(selectCampers);
 
   const camper = campers.find((camper) => camper.id === id);
 

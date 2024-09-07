@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BookingForm from "./BookingForm";
 import ItemDetailsIcons from "../../../components/Equipment";
-import { RootState } from "../../../redux/store";
+import { selectCampers } from "../../../redux/selectors";
 
 const Features: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const campers = useSelector((state: RootState) => state.campers.items);
+  const { campers } = useSelector(selectCampers);
 
   if (!campers || !Array.isArray(campers)) {
     return <div>We don`t have details for this camper</div>;

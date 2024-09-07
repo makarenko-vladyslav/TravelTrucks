@@ -13,7 +13,7 @@ export const fetchCampers = createAsyncThunk(
     const params = new URLSearchParams({
       page,
       limit,
-      ...filters.filterParams,
+      ...filters.filters,
     });
 
     try {

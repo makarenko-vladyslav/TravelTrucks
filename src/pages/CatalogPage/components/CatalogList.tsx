@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCampers, selectFilterParams } from "../../../redux/selectors";
+import { selectCampers, selectFilters } from "../../../redux/selectors";
 import { fetchCampers } from "../../../redux/operations";
 import { nextPage } from "../../../redux/campersSlice";
 import Button from "../../../components/Button";
@@ -12,7 +12,7 @@ export default function CamperCardCollection() {
   const dispatch: AppDispatch = useDispatch();
   const { hasNextPage, campers, loading, error } = useSelector(selectCampers);
 
-  const filters = useSelector(selectFilterParams);
+  const filters = useSelector(selectFilters);
 
   useEffect(() => {
     dispatch(fetchCampers());

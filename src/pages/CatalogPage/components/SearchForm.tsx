@@ -62,9 +62,6 @@ export default function SearchForm() {
 
     dispatch(clearCampers());
     dispatch(setFilters(clearFilters));
-
-    console.log(clearFilters);
-    
   };
 
   return (

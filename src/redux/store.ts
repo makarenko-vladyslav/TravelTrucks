@@ -16,7 +16,7 @@ import { filtersReducer } from "./filtersSlice";
 const campersPersistConfig = {
   key: "campers",
   storage,
-  whitelist: ["favorites"],
+  whitelist: ["favorites, campers"],
 };
 
 const persistedCampersReducer = persistReducer(
