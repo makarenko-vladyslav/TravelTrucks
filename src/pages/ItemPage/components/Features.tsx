@@ -1,24 +1,11 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BookingForm from "./BookingForm";
 import ItemDetailsIcons from "../../../components/Equipment";
 import { selectCampers } from "../../../redux/selectors";
 
 const Features: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-
-  const { campers } = useSelector(selectCampers);
-
-  if (!campers || !Array.isArray(campers)) {
-    return <div>We don`t have details for this camper</div>;
-  }
-
-  const camper = campers.find((camper) => camper.id === id);
-
-  if (!camper) {
-    return <div>Camper not found</div>;
-  }
+  const { currentItem } = useSelector(selectCampers);
 
   const {
     form,
@@ -38,7 +25,7 @@ const Features: React.FC = () => {
     microwave,
     gas,
     water,
-  } = camper;
+  } = currentItem;
 
   const booleanDetails = {
     AC,

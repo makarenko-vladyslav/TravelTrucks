@@ -1,38 +1,18 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BookingForm from "./BookingForm";
 
-import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { selectCampers } from "../../../redux/selectors";
+import { renderStars } from "../../../utils/renderStars";
 
 const Reviews: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-
-  const { campers } = useSelector(selectCampers);
-
-  const camper = campers.find((camper) => camper.id === id);
-
-  const renderStars = (rating: number) => {
-    const stars: React.ReactNode[] = [];
-
-    for (let i = 0; i < 5; i++) {
-      if (rating >= i + 1) {
-        stars.push(<FaStar key={`full-${i}`} className="text-rating" />);
-      } else if (rating >= i + 0.5) {
-        stars.push(<FaStarHalfAlt key={`half-${i}`} className="text-rating" />);
-      } else {
-        stars.push(<FaRegStar key={`empty-${i}`} className="text-badges" />);
-      }
-    }
-    return stars;
-  };
+  const { currentItem } = useSelector(selectCampers);
 
   return (
     <div className="py-11 flex gap-10">
       <ul className="py-3 max-w-[640px]">
-        {camper?.reviews.length ? (
-          camper.reviews.map((review, index) => (
+        {currentItem?.reviews.length ? (
+          currentItem.reviews.map((review, index) => (
             <li
               key={index + review.reviewer_rating + review.reviewer_name}
               className="mb-11 grid grid-cols-[60px_auto] gap-4"

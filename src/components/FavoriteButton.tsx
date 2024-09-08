@@ -5,20 +5,21 @@ import { selectCampers } from "../redux/selectors";
 import { BsSuitHeart } from "react-icons/bs";
 
 interface FavoriteButtonProps {
-  isFavorite: boolean;
-  toggleFavorite: () => void;
+  favorite: {
+    id: number;
+  };
 }
 
-const FavoriteButton: React.FC<FavoriteButtonProps> = ({ favoriteId }) => {
+const FavoriteButton: React.FC<FavoriteButtonProps> = ({ favorite }) => {
   const dispatch = useDispatch();
   const { favorites } = useSelector(selectCampers);
 
   const isFavorite = favorites.some(
-    (favorite: number) => favorite.id === favoriteId
+    (favItem: { id: number }) => favItem.id === favorite.id
   );
 
   const handleToggleFavorite = () => {
-    dispatch(toggleFavorite(favoriteId));
+    dispatch(toggleFavorite(favorite));
   };
 
   return (

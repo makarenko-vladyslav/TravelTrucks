@@ -34,16 +34,14 @@ const campersSlice = createSlice({
       state.page = 1;
     },
     toggleFavorite(state, action) {
-      const camperId = action.payload;
+      const { id } = action.payload;
 
-      const isFavorite = state.favorites.some((item) => item.id === camperId);
+      const isFavorite = state.favorites.some((item) => item.id === id);
 
       if (!isFavorite) {
-        state.favorites.push({ id: camperId, isFavorite: true });
+        state.favorites.push({ ...action.payload, isFavorite: true });
       } else {
-        state.favorites = state.favorites.filter(
-          (item) => item.id !== camperId
-        );
+        state.favorites = state.favorites.filter((item) => item.id !== id);
       }
     },
   },

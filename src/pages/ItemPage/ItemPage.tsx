@@ -13,7 +13,7 @@ import Loader from "../../components/Loader";
 import { selectCampers } from "../../redux/selectors";
 
 export default function CatalogItemPage() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string | undefined }>();
   const dispatch = useDispatch<AppDispatch>();
   const isTabletOrMobile = isMobileOrTablet();
 
@@ -22,6 +22,9 @@ export default function CatalogItemPage() {
   useEffect(() => {
     if (id) {
       dispatch(fetchCamperById(id));
+
+    console.log(id, currentItem);
+    
     }
   }, [id, dispatch]);
 
@@ -37,14 +40,7 @@ export default function CatalogItemPage() {
               <div className="text-center">Camper not found</div>
             ) : (
               <>
-                <CamperDetails
-                  id={currentItem.id}
-                  name={currentItem.name}
-                  rating={currentItem.rating}
-                  reviews={currentItem.reviews}
-                  location={currentItem.location}
-                  price={currentItem.price}
-                />
+                <CamperDetails currentItem={currentItem} />
                 <CamperGallery
                   gallery={currentItem.gallery}
                   isTabletOrMobile={isTabletOrMobile}

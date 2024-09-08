@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import Loader from "./Loader";
 
-const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
+const HomePage = lazy(() => import("../pages/CatalogPage/HomePage/HomePage"));
 const CatalogPage = lazy(() => import("../pages/CatalogPage/CatalogPage"));
 const ItemPage = lazy(() => import("../pages/ItemPage/ItemPage"));
 const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));

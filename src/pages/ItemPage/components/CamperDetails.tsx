@@ -4,50 +4,49 @@ import { CiMap } from "react-icons/ci";
 import FavoriteButton from "../../../components/FavoriteButton";
 
 interface CamperDetailsProps {
-  id: number;
-  name: string;
-  rating: number;
-  reviews: {
-    reviewer_name: string;
-    reviewer_rating: number;
-    comment: string;
-  }[];
-  location: string;
-  price: number;
+  currentItem: {
+    id: number;
+    name: string;
+    rating: number;
+    reviews: {
+      reviewer_name: string;
+      reviewer_rating: number;
+      comment: string;
+    }[];
+    location: string;
+    price: number;
+  };
 }
 
-const CamperDetails: React.FC<CamperDetailsProps> = ({
-  id,
-  name,
-  rating,
-  reviews,
-  location,
-  price,
-}) => (
-  <>
-    <div className="flex justify-between gap-3">
-      <h2 className="text-2xl leading-[1.33] font-semibold mb-2">{name}</h2>
-      <FavoriteButton favoriteId={id} />
-    </div>
+const CamperDetails: React.FC<CamperDetailsProps> = ({ currentItem }) => {
+  const { name, rating, reviews, location, price } = currentItem;
 
-    <div className="flex gap-4 mb-4">
-      <p className="flex align-center tracking-wide underline">
-        <span className="flex items-center gap-1">
-          <FaStar className="fill-rating" />
-          {rating}
-        </span>
-        ({reviews.length} Reviews)
-      </p>
+  return (
+    <>
+      <div className="flex justify-between gap-3">
+        <h2 className="text-2xl leading-[1.33] font-semibold mb-2">{name}</h2>
+        <FavoriteButton favorite={currentItem} />
+      </div>
 
-      <p className="flex align-center gap-1">
-        <CiMap className="self-center text-lg" />
-        {location.split(", ").reverse().join(", ")}
-      </p>
-    </div>
-    <span className="flex align-center text-2xl leading-[1.33] font-semibold gap-3 mb-7">
-      €{price.toFixed(2)}
-    </span>
-  </>
-);
+      <div className="flex gap-4 mb-4">
+        <p className="flex align-center tracking-wide underline">
+          <span className="flex items-center gap-1">
+            <FaStar className="fill-rating" />
+            {rating}
+          </span>
+          ({reviews.length} Reviews)
+        </p>
+
+        <p className="flex align-center gap-1">
+          <CiMap className="self-center text-lg" />
+          {location.split(", ").reverse().join(", ")}
+        </p>
+      </div>
+      <span className="flex align-center text-2xl leading-[1.33] font-semibold gap-3 mb-7">
+        €{price.toFixed(2)}
+      </span>
+    </>
+  );
+};
 
 export default CamperDetails;

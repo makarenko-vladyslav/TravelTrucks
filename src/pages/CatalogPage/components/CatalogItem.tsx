@@ -41,7 +41,7 @@ const CatalogItem: React.FC<CatalogItemProps> = ({ camper }) => {
 
           <span className="flex align-center text-2xl leading-[1.33] font-semibold gap-3">
             €{camper.price.toFixed(2)}
-            <FavoriteButton favoriteId={camper.id} />
+            <FavoriteButton favorite={camper} />
           </span>
         </div>
 
