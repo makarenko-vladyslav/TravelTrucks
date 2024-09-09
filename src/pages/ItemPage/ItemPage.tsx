@@ -22,9 +22,6 @@ export default function CatalogItemPage() {
   useEffect(() => {
     if (id) {
       dispatch(fetchCamperById(id));
-
-    console.log(id, currentItem);
-    
     }
   }, [id, dispatch]);
 

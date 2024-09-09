@@ -31,10 +31,12 @@ const FavoritesModal: React.FC<FavoritesModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="absolute z-50 top-20 right-[10%] bg-white bg-opacity-5 backdrop-blur-lg border border-text border-opacity-30 p-6 rounded-lg w-96 shadow-lg"
+        className="absolute z-50 top-20 right-[10%] bg-white bg-opacity-5 backdrop-blur-lg border border-text border-opacity-30 p-6 rounded-lg w-fit shadow-lg"
         onClick={handleModalClick}
       >
-        <h2 className="text-2xl font-semibold mb-4 text-button">Your Favorites:</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-button">
+          Your Favorites:
+        </h2>
         {favorites.length === 0 ? (
           <p>No favorites yet!</p>
         ) : (

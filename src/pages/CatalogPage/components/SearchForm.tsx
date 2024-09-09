@@ -101,8 +101,8 @@ export default function SearchForm() {
                   type="text"
                   id="location"
                   name="location"
-                  placeholder="Kyiv, Ukraine"
-                  className="border-none rounded-xl w-full py-4 pl-12 pr-5 bg-inputs placeholder:text-main" // Важливо: додано padding-left для поля вводу
+                  placeholder="Exp: Kyiv"
+                  className="border-none rounded-xl w-full py-4 pl-12 pr-5 bg-inputs placeholder:text-text"
                 />
               </div>
             </div>

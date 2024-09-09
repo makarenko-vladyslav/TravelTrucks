@@ -24,7 +24,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ favorite }) => {
 
   return (
     <BsSuitHeart
-      className={`cursor-pointer self-center -translate-y-1.5 hover:fill-button 
+      className={`cursor-pointer self-center -translate-y-1.5 hover:fill-button size-6
         ${isFavorite ? "fill-button" : ""}`}
       onClick={handleToggleFavorite}
     />

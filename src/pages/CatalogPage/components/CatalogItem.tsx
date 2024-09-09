@@ -28,16 +28,21 @@ const allowedKeys = [
 const CatalogItem: React.FC<CatalogItemProps> = ({ camper }) => {
   return (
     <>
-      <img
-        src={camper.gallery[0]?.thumb}
-        alt={`${camper.name} photo`}
-        className="h-full rounded-lg object-cover"
-      />
+      <Link to={`/catalog/${camper.id}/features`}>
+        <img
+          src={camper.gallery[0]?.thumb}
+          alt={`${camper.name} photo`}
+          className="h-full rounded-lg object-cover bg-grayLight"
+        />
+      </Link>
+
       <div>
         <div className="flex justify-between gap-3">
-          <h2 className="text-2xl leading-[1.33] font-semibold mb-2">
-            {camper.name}
-          </h2>
+          <Link to={`/catalog/${camper.id}/features`}>
+            <h2 className="text-2xl leading-[1.33] font-semibold mb-2">
+              {camper.name}
+            </h2>
+          </Link>
 
           <span className="flex align-center text-2xl leading-[1.33] font-semibold gap-3">
             €{camper.price.toFixed(2)}
@@ -46,13 +51,15 @@ const CatalogItem: React.FC<CatalogItemProps> = ({ camper }) => {
         </div>
 
         <div className="flex gap-4 mb-6 ">
-          <p className="flex align-center tracking-wide underline">
-            <span className="flex items-center gap-1">
-              <FaStar className="fill-rating" />
-              {camper.rating}
-            </span>
-            ({camper.reviews.length} Reviews)
-          </p>
+          <Link to={`/catalog/${camper.id}/reviews`}>
+            <p className="flex align-center tracking-wide underline">
+              <span className="flex items-center gap-1">
+                <FaStar className="fill-rating" />
+                {camper.rating}
+              </span>
+              ({camper.reviews.length} Reviews)
+            </p>
+          </Link>
 
           <p className="flex align-center gap-1">
             <CiMap className="self-center text-lg" />
@@ -72,7 +79,7 @@ const CatalogItem: React.FC<CatalogItemProps> = ({ camper }) => {
             ))}
         </ul>
 
-        <Link to={`/catalog/${camper.id}`}>
+        <Link to={`/catalog/${camper.id}/features`}>
           <Button className="text-white" width="166px">
             Show more
           </Button>

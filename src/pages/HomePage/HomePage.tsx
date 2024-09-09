@@ -1,7 +1,6 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../../../components/Header";
-import Button from "../../../components/Button";
+import Header from "../../components/Header";
+import Button from "../../components/Button";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -23,7 +22,9 @@ export default function HomePage() {
             You can find everything you want in our catalog
           </p>
 
-          <Button onClick={handleClick} width="173px" className="text-white">View Now</Button>
+          <Button onClick={handleClick} width="173px" className="text-white">
+            View Now
+          </Button>
         </div>
       </section>
     </>

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCampers, selectFilters } from "../../../redux/selectors";
 import { fetchCampers } from "../../../redux/operations";
@@ -25,13 +25,15 @@ export default function CamperCardCollection() {
     }
   };
 
+  const memoizedCampers = useMemo(() => campers, [campers]);
+
   return (
     <section className="campers-list">
       <>
         <ul className="grid gap-8 w-full mb-10">
           <h3 className="text-center text-text font-bold text-xl">{error}</h3>
 
-          {campers.map((camper) => (
+          {memoizedCampers.map((camper) => (
             <li
               key={camper.id}
               className="grid grid-cols-2 lap:grid-cols-[300px_1fr] gap-6 border border-grayLight p-6 rounded-[20px] w-full min-h-[368px] overflow-hidden"
