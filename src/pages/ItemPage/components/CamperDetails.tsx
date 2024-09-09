@@ -2,6 +2,7 @@ import React from "react";
 import { FaStar } from "react-icons/fa";
 import { CiMap } from "react-icons/ci";
 import FavoriteButton from "../../../components/FavoriteButton";
+import { Link } from "react-router-dom";
 
 interface CamperDetailsProps {
   currentItem: {
@@ -29,13 +30,15 @@ const CamperDetails: React.FC<CamperDetailsProps> = ({ currentItem }) => {
       </div>
 
       <div className="flex gap-4 mb-4">
-        <p className="flex align-center tracking-wide underline">
-          <span className="flex items-center gap-1">
-            <FaStar className="fill-rating" />
-            {rating}
-          </span>
-          ({reviews.length} Reviews)
-        </p>
+        <Link to={`/catalog/${currentItem.id}/reviews`}>
+          <p className="flex align-center tracking-wide underline">
+            <span className="flex items-center gap-1">
+              <FaStar className="fill-rating" />
+              {rating}
+            </span>
+            ({reviews.length} Reviews)
+          </p>
+        </Link>
 
         <p className="flex align-center gap-1">
           <CiMap className="self-center text-lg" />
