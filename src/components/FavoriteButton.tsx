@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../redux/campersSlice";
 import { selectCampers } from "../redux/selectors";
 import { BsSuitHeart } from "react-icons/bs";
+import { Camper } from "../types/types";
 
 interface FavoriteButtonProps {
-  favorite: {
-    id: number;
-  };
+  favorite: Camper;
 }
 
 const FavoriteButton: React.FC<FavoriteButtonProps> = ({ favorite }) => {

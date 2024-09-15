@@ -1,18 +1,18 @@
 import { Link, NavLink } from "react-router-dom";
 import logoUrl from "../assets/logo.svg";
-import FavoriteList from "./FavoriteList";
+import FavoriteListButton from "./FavoriteListButton";
 
 export default function Header() {
   return (
     <header className="bg-inputs w-screen">
-      <nav className="container py-3">
+      <nav className="container py-3 w-[1320px]">
         <ul className="flex justify-end pr-4 tab:pr-0 tab:justify-between items-center relative py-3">
           <li>
             <Link to="/" aria-label="Go to homepage">
               <img
                 src={logoUrl}
                 alt="Site logo"
-                className="absolute top-0 left-4 lap:left-16 py-3 cursor-pointer w-[136px]"
+                className="absolute top-0 py-3 cursor-pointer w-[136px]"
               />
             </Link>
           </li>
@@ -39,7 +39,7 @@ export default function Header() {
               Catalog
             </NavLink>
           </li>
-          <FavoriteList />
+          <FavoriteListButton />
         </ul>
       </nav>
     </header>

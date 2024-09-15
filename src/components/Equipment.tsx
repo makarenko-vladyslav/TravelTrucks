@@ -16,20 +16,7 @@ import {
   TbManualGearboxFilled,
 } from "react-icons/tb";
 
-type IconKey =
-  | "AC"
-  | "bathroom"
-  | "kitchen"
-  | "TV"
-  | "radio"
-  | "refrigerator"
-  | "microwave"
-  | "gas"
-  | "water"
-  | "transmission"
-  | "engine";
-
-type EngineValue = "diesel" | "hybrid" | "petrol" | undefined;
+import { IconKey, EngineValue } from "../types/types";
 
 const getIcon = (
   key: IconKey,

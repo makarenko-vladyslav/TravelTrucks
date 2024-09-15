@@ -3,23 +3,9 @@ import { FaStar } from "react-icons/fa";
 import { CiMap } from "react-icons/ci";
 import FavoriteButton from "../../../components/FavoriteButton";
 import { Link } from "react-router-dom";
+import { Camper } from "../../../types/types";
 
-interface CamperDetailsProps {
-  currentItem: {
-    id: number;
-    name: string;
-    rating: number;
-    reviews: {
-      reviewer_name: string;
-      reviewer_rating: number;
-      comment: string;
-    }[];
-    location: string;
-    price: number;
-  };
-}
-
-const CamperDetails: React.FC<CamperDetailsProps> = ({ currentItem }) => {
+const CamperDetails: React.FC<Camper> = (currentItem) => {
   const { name, rating, reviews, location, price } = currentItem;
 
   return (

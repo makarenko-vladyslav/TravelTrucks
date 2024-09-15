@@ -4,12 +4,14 @@ interface LoaderProps {
   fullScreen?: boolean;
   text?: string;
   className?: string;
+  width?: string;
 }
 
 export default function Loader({
   fullScreen = false,
   text = "",
   className = "",
+  width = "40",
 }: LoaderProps) {
   return (
     <div
@@ -30,7 +32,7 @@ export default function Loader({
 
       <RotatingLines
         visible={true}
-        width="40"
+        width={width}
         strokeColor="var(--color-main)"
         strokeWidth="4"
         animationDuration="0.75"

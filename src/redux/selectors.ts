@@ -1,5 +1,10 @@
-export const selectCampers = (state) => state.campers;
+import { CampersState, Filters } from "../types/types";
+import { RootState } from "./store";
 
-export const selectFilters = (state) => state.filters.filters;
+export const selectCampers = (state: RootState): CampersState => state.campers;
 
-export const selectLoading = (state) => state.campers.loading;
+export const selectFilters = (state: RootState): Filters =>
+  state.filters.filters;
+
+export const selectLoading = (state: RootState): boolean =>
+  state.campers.loading;

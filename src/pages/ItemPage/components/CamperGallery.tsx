@@ -3,11 +3,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { responsive } from "../../../utils/responsive";
 import ModalImage from "../../../components/ModalImage";
-
-interface CamperGalleryProps {
-  gallery: { original: string }[];
-  isTabletOrMobile: boolean;
-}
+import { CamperGalleryProps } from "../../../types/types";
 
 const CamperGallery: React.FC<CamperGalleryProps> = ({
   gallery,

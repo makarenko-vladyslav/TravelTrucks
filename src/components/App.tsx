@@ -13,17 +13,15 @@ const Reviews = lazy(() => import("../pages/ItemPage/components/Reviews"));
 const App: React.FC = () => {
   return (
     <Suspense fallback={<Loader fullScreen text="Loading" />}>
-      <div>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/catalog" element={<CatalogPage />} />
-          <Route path="/catalog/:id" element={<ItemPage />}>
-            <Route path="features" element={<Features />} />
-            <Route path="reviews" element={<Reviews />} />
-          </Route>
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/catalog" element={<CatalogPage />} />
+        <Route path="/catalog/:id" element={<ItemPage />}>
+          <Route path="features" element={<Features />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </Suspense>
   );
 };

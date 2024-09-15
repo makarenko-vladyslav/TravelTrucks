@@ -30,10 +30,13 @@ import { useDispatch } from "react-redux";
 import { cleanFilters } from "../../../utils/cleanFilters";
 import { setFilters } from "../../../redux/filtersSlice";
 import { clearCampers } from "../../../redux/campersSlice";
+import { AppDispatch } from "../../../redux/store";
+import { SearchFormValues } from "../../../types/types";
+import { mapSearchFormValuesToFilters } from "../../../utils/mapSearchFormValuesToFilters";
 
 const validationSchema = Yup.object({
   location: Yup.string(),
-  form: Yup.string(),
+  vehicleType: Yup.string(),
   transmission: Yup.string(),
   engine: Yup.string(),
   AC: Yup.boolean(),
@@ -48,7 +51,7 @@ const validationSchema = Yup.object({
 });
 
 export default function SearchForm() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const sidebar = document.querySelector(".sidebar");
 
   sidebar?.classList.toggle("show-sidebar");
@@ -57,9 +60,8 @@ export default function SearchForm() {
     sidebar?.classList.toggle("show-sidebar");
   };
 
-  const handleSubmit = (values) => {
-    const clearFilters = cleanFilters(values);
-
+  const handleSubmit = (values: SearchFormValues) => {
+    const clearFilters = cleanFilters(mapSearchFormValuesToFilters(values));
     dispatch(clearCampers());
     dispatch(setFilters(clearFilters));
   };
@@ -68,10 +70,10 @@ export default function SearchForm() {
     <aside className="sidebar">
       <IoClose onClick={handleClick} className="block tab:hidden" />
 
-      <Formik
+      <Formik<SearchFormValues>
         initialValues={{
           location: "",
-          vehicleType: "",
+          form: "",
           transmission: "",
           engine: "",
           AC: false,

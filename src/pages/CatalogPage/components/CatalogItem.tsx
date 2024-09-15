@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 import Button from "../../../components/Button";
 import { FaStar } from "react-icons/fa";
 import { CiMap } from "react-icons/ci";
-import ItemDetailsIcons from "../../../components/Equipment";
-import { Camper } from "../../../types/types";
+import ItemDetailsIcon from "../../../components/Equipment";
+import { Camper, IconKey } from "../../../types/types";
 import FavoriteButton from "../../../components/FavoriteButton";
 
 interface CatalogItemProps {
   camper: Camper;
 }
 
-const allowedKeys = [
+const allowedKeys: IconKey[] = [
   "transmission",
   "engine",
   "AC",
@@ -73,9 +73,13 @@ const CatalogItem: React.FC<CatalogItemProps> = ({ camper }) => {
 
         <ul className="flex flex-wrap gap-2 mb-6">
           {Object.entries(camper)
-            .filter(([key]) => allowedKeys.includes(key))
+            .filter(([key]) => allowedKeys.includes(key as IconKey))
             .map(([key, value]) => (
-              <ItemDetailsIcons key={key} detailKey={key} value={value} />
+              <ItemDetailsIcon
+                key={key}
+                detailKey={key as IconKey}
+                value={value}
+              />
             ))}
         </ul>
 

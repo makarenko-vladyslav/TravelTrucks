@@ -4,13 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CustomDateField from "../components/CustomDateField";
 import Button from "../../../components/Button";
-
-interface BookingFormValues {
-  name: string;
-  email: string;
-  bookingDate: string;
-  comment: string;
-}
+import { BookingFormValues } from "../../../types/types";
 
 const initialValues: BookingFormValues = {
   name: "",
@@ -28,7 +22,7 @@ const validationSchema = Yup.object({
   comment: Yup.string(),
 });
 
-export default function BookingForm() {
+const BookingForm: React.FC = () => {
   const onSubmit = (
     values: BookingFormValues,
     { resetForm }: FormikHelpers<BookingFormValues>
@@ -113,4 +107,6 @@ export default function BookingForm() {
       <ToastContainer />
     </div>
   );
-}
+};
+
+export default BookingForm;

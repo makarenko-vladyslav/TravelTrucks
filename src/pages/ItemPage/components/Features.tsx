@@ -1,11 +1,34 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import BookingForm from "./BookingForm";
-import ItemDetailsIcons from "../../../components/Equipment";
 import { selectCampers } from "../../../redux/selectors";
+import ItemDetailsIcons from "../../../components/Equipment";
+import { BooleanDetails, TextDetails, IconKey } from "../../../types/types";
+
+const BooleanDetailsList: React.FC<{ details: BooleanDetails }> = ({
+  details,
+}) => (
+  <ul className="flex flex-wrap items-start justify-start gap-2 w-full mb-11">
+    {Object.entries(details).map(([key, value]) => (
+      <ItemDetailsIcons key={key} detailKey={key as IconKey} value={value} />
+    ))}
+  </ul>
+);
+
+const TextDetailsList: React.FC<{ details: TextDetails }> = ({ details }) => (
+  <ul className="flex flex-col gap-4 pt-6">
+    {Object.entries(details).map(([key, value]) => (
+      <li key={key} className="flex justify-between capitalize">
+        <p>{key}</p>
+        <p>{value?.toString() ?? ""}</p>
+      </li>
+    ))}
+  </ul>
+);
 
 const Features: React.FC = () => {
   const { currentItem } = useSelector(selectCampers);
+
+  if (!currentItem) return null;
 
   const {
     form,
@@ -27,7 +50,7 @@ const Features: React.FC = () => {
     water,
   } = currentItem;
 
-  const booleanDetails = {
+  const booleanDetails: BooleanDetails = {
     AC,
     bathroom,
     kitchen,
@@ -39,7 +62,7 @@ const Features: React.FC = () => {
     water,
   };
 
-  const textDetails = {
+  const textDetails: TextDetails = {
     form,
     length,
     width,
@@ -51,27 +74,10 @@ const Features: React.FC = () => {
   };
 
   return (
-    <div className="py-11 flex gap-10">
-      <div className="w-full max-w-[640px] py-11 px-20 bg-inputs rounded-[10px]">
-        <ul className="flex flex-wrap items-start justify-start gap-2 w-full mb-11">
-          {Object.entries(booleanDetails).map(([key, value]) => (
-            <ItemDetailsIcons key={key} detailKey={key} value={value} />
-          ))}
-        </ul>
-
-        <h3 className="after-line">Vehicle Type</h3>
-
-        <ul className="flex flex-col gap-4 pt-6">
-          {Object.entries(textDetails).map(([key, value]) => (
-            <li key={key} className="flex justify-between capitalize">
-              <p>{key}</p>
-              <p>{value?.toString() ?? ""}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <BookingForm />
+    <div className="w-full max-w-[640px] py-11 px-20 bg-inputs rounded-[10px]">
+      <BooleanDetailsList details={booleanDetails} />
+      <h3 className="after-line">Vehicle Type</h3>
+      <TextDetailsList details={textDetails} />
     </div>
   );
 };
