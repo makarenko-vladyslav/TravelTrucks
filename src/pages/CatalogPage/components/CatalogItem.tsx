@@ -4,7 +4,7 @@ import Button from "../../../components/Button";
 import { FaStar } from "react-icons/fa";
 import { CiMap } from "react-icons/ci";
 import ItemDetailsIcons from "../../../components/Equipment";
-import { Camper } from "../../../types";
+import { Camper } from "../../../types/types";
 import FavoriteButton from "../../../components/FavoriteButton";
 
 interface CatalogItemProps {

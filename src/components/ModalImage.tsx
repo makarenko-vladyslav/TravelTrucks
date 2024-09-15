@@ -19,7 +19,7 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
     width: "90%",
     height: "fit-content",
-    maxWidth: "object-fit",
+    maxWidth: "90%",
     border: "none",
     padding: "0",
     background: "transparent",
@@ -52,14 +52,19 @@ const ModalImage: React.FC<ModalImageProps> = ({
 
     if (isOpen) {
       window.addEventListener("keydown", handleKeyDown);
-    } else {
-      window.removeEventListener("keydown", handleKeyDown);
     }
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen, activeImageIndex, handleNext, handlePrev]);
+  }, [isOpen, handleNext, handlePrev]);
+
+  useEffect(() => {
+    if (isOpen) {
+      const closeButton = document.getElementById("modal-close-button");
+      closeButton?.focus();
+    }
+  }, [isOpen]);
 
   return (
     <Modal
@@ -68,7 +73,11 @@ const ModalImage: React.FC<ModalImageProps> = ({
       style={customStyles}
       contentLabel="Image Modal"
     >
-      <button onClick={onRequestClose} className="absolute top-2 -right-4 z-[999]">
+      <button
+        id="modal-close-button"
+        onClick={onRequestClose}
+        className="absolute top-2 -right-4 z-[999]"
+      >
         <IoMdCloseCircle className="size-9 text-grayLight hover:text-button cursor-pointer transition-colors" />
       </button>
 

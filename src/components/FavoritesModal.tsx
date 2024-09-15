@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface FavoritesModalProps {
@@ -15,8 +15,9 @@ const FavoritesModal: React.FC<FavoritesModalProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const handleNavigateToItem = async (id: number) => {
-    navigate(`/catalog/${id}`);
+  const handleNavigateToItem = (id: number) => {
+    navigate(`/catalog/${id}/features`);
+    onClose();
   };
 
   const handleModalClick = (
@@ -25,16 +26,38 @@ const FavoritesModal: React.FC<FavoritesModalProps> = ({
     e.stopPropagation();
   };
 
+  const handleEscapeKey = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleEscapeKey);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, [onClose]);
+
   return (
     <div
-      className="fixed inset-0 z-10 flex justify-center items-center"
+      className="fixed inset-0 z-10 flex justify-center items-center bg-main bg-opacity-50"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="favorites-modal-title"
     >
       <div
-        className="absolute z-50 top-20 right-[10%] bg-white bg-opacity-5 backdrop-blur-lg border border-text border-opacity-30 p-6 rounded-lg w-fit shadow-lg"
+        className="absolute z-50 top-20 right-[10%] bg-white bg-opacity-90 backdrop-blur-lg border border-text border-opacity-30 p-6 rounded-lg w-fit shadow-lg"
         onClick={handleModalClick}
       >
-        <h2 className="text-2xl font-semibold mb-4 text-button">
+        <h2
+          id="favorites-modal-title"
+          className="text-2xl font-semibold mb-4 text-button"
+        >
           Your Favorites:
         </h2>
         {favorites.length === 0 ? (

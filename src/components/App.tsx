@@ -10,7 +10,7 @@ const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));
 const Features = lazy(() => import("../pages/ItemPage/components/Features"));
 const Reviews = lazy(() => import("../pages/ItemPage/components/Reviews"));
 
-export default function App() {
+const App: React.FC = () => {
   return (
     <Suspense fallback={<Loader fullScreen text="Loading" />}>
       <div>
@@ -26,4 +26,6 @@ export default function App() {
       </div>
     </Suspense>
   );
-}
+};
+
+export default App;

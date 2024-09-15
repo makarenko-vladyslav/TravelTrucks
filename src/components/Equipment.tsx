@@ -16,7 +16,25 @@ import {
   TbManualGearboxFilled,
 } from "react-icons/tb";
 
-const getIcon = (key: string, value: string | boolean | number | undefined) => {
+type IconKey =
+  | "AC"
+  | "bathroom"
+  | "kitchen"
+  | "TV"
+  | "radio"
+  | "refrigerator"
+  | "microwave"
+  | "gas"
+  | "water"
+  | "transmission"
+  | "engine";
+
+type EngineValue = "diesel" | "hybrid" | "petrol" | undefined;
+
+const getIcon = (
+  key: IconKey,
+  value: string | boolean | number | EngineValue
+) => {
   switch (key) {
     case "AC":
       return PiWind;
@@ -55,8 +73,8 @@ const getIcon = (key: string, value: string | boolean | number | undefined) => {
 };
 
 interface ItemDetailsIconsProps {
-  detailKey: string;
-  value: string | boolean | number | undefined;
+  detailKey: IconKey;
+  value: string | boolean | number | EngineValue;
   style?: string;
 }
 
@@ -75,7 +93,7 @@ const ItemDetailsIcons: React.FC<ItemDetailsIconsProps> = ({
     return null;
   }
 
-  const getValue = (value: string | boolean | number | undefined) => {
+  const getValue = (value: string | boolean | number | EngineValue) => {
     if (typeof value === "boolean") {
       return value ? detailKey : "";
     }
@@ -83,12 +101,12 @@ const ItemDetailsIcons: React.FC<ItemDetailsIconsProps> = ({
   };
 
   return (
-    <>
-      <li className="flex justify-center items-center gap-2 px-[18px] py-3 max-h-12 bg-badges rounded-full">
-        {Icon && <Icon className="w-6 h-auto" />}
-        <span className="capitalize">{getValue(value)}</span>
-      </li>
-    </>
+    <li
+      className={`flex justify-center items-center gap-2 px-[18px] py-3 max-h-12 bg-badges rounded-full ${style}`}
+    >
+      {Icon && <Icon className="w-6 h-auto" />}
+      <span className="capitalize">{getValue(value)}</span>
+    </li>
   );
 };
 

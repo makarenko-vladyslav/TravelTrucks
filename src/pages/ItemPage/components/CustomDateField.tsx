@@ -1,7 +1,21 @@
 import React from "react";
+import { FormikValues, FormikErrors } from "formik";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css"; // Import default styles
-import { CustomDateFieldProps } from "../../../types";
+import "react-datepicker/dist/react-datepicker.css";
+
+interface CustomDateFieldProps {
+  field: {
+    name: string;
+    value: string | Date;
+  };
+  form: {
+    setFieldValue: (field: string, value: string | Date) => void;
+    validateField: (field: string) => void;
+    errors: FormikErrors<FormikValues>;
+    touched: Record<string, boolean>;
+  };
+  placeholder?: string;
+}
 
 const CustomDateField: React.FC<CustomDateFieldProps> = ({
   field,

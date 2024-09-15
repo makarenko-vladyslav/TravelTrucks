@@ -1,5 +1,3 @@
-import { FormikValues, FormikErrors } from "formik";
-
 export interface CampersResponse {
   items: Camper[];
   total: number;
@@ -67,20 +65,6 @@ export interface SearchFormValues {
   microwave: boolean;
   gas: boolean;
   water: boolean;
-}
-
-export interface CustomDateFieldProps {
-  field: {
-    name: string;
-    value: string | Date;
-  };
-  form: {
-    setFieldValue: (field: string, value: string | Date) => void;
-    validateField: (field: string) => void;
-    errors: FormikErrors<FormikValues>;
-    touched: Record<string, boolean>;
-  };
-  placeholder?: string;
 }
 
 export type FilterValue = string | number | boolean;

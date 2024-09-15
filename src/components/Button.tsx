@@ -5,23 +5,22 @@ interface ButtonProps {
   onClick?: () => void;
   width: string;
   className?: string;
-  type?: "button" | "submit" | "reset" | undefined;
+  type?: "button" | "submit" | "reset";
 }
 
 export default function Button({
   children,
   onClick,
   width,
-  className,
-  type,
+  className = "",
+  type = "button",
 }: ButtonProps) {
   return (
     <button
       onClick={onClick}
       type={type}
       style={{ minWidth: width }}
-      className={`py-4 h-[58px] rounded-full bg-button font-medium
-        hover:bg-buttonHover transition-colors w-fit ${className}`}
+      className={`py-4 h-[58px] rounded-full bg-button font-medium hover:bg-buttonHover transition-colors w-fit ${className}`}
     >
       {children}
     </button>
