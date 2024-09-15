@@ -7,15 +7,15 @@ import CamperDetails from "./components/CamperDetails";
 import CamperGallery from "./components/CamperGallery";
 import CamperDescription from "./components/CamperDescription";
 import CamperNavigation from "./components/CamperNavigation";
-import isMobileOrTablet from "../../hooks/isMobileOrTablet";
-import { fetchCamperById } from "../../redux/operations";
+import { fetchCamperById } from "../../redux/operations.js/index.js";
 import Loader from "../../components/Loader";
 import { selectCampers } from "../../redux/selectors";
+import { useMediaQuery } from "react-responsive";
 
 export default function CatalogItemPage() {
   const { id } = useParams<{ id: string | undefined }>();
   const dispatch = useDispatch<AppDispatch>();
-  const isTabletOrMobile = isMobileOrTablet();
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1024px)" });
 
   const { currentItem, loading } = useSelector(selectCampers);
 
