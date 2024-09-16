@@ -7,7 +7,7 @@ export default function Header() {
     <header className="bg-inputs w-screen">
       <nav className="desk:container mx-auto relative py-3 min-w-[320px] px-4 tab:px-16">
         <ul className="flex justify-between">
-          <li className="mr-20">
+          <li className="pr-12 mobLarge:pr-20">
             <Link to="/" aria-label="Go to homepage">
               <img
                 src={logoUrl}
@@ -16,11 +16,12 @@ export default function Header() {
               />
             </Link>
           </li>
-          <li className="flex">
+
+          <li className="flex max-mobLarge:flex-col max-mobLarge:items-center">
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `px-2 py-3 tab:px-4 font-medium ${
+                `px-2 mobLarge:py-3 tab:px-4 font-medium ${
                   isActive ? "text-button" : "text-text"
                 }`
               }
@@ -39,6 +40,7 @@ export default function Header() {
               Catalog
             </NavLink>
           </li>
+
           <FavoriteListButton />
         </ul>
       </nav>

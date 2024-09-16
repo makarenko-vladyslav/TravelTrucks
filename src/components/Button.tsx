@@ -6,6 +6,7 @@ interface ButtonProps {
   width: string;
   className?: string;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 export default function Button({
@@ -14,13 +15,20 @@ export default function Button({
   width,
   className = "",
   type = "button",
+  disabled = false,
 }: ButtonProps) {
   return (
     <button
       onClick={onClick}
       type={type}
       style={{ minWidth: width }}
-      className={`py-4 h-[58px] rounded-full bg-button font-medium hover:bg-buttonHover transition-colors w-fit ${className}`}
+      disabled={disabled}
+      className={`py-4 h-[58px] rounded-full bg-button font-medium hover:bg-buttonHover transition-all w-fit ${className}
+      ${
+        disabled
+          ? "opacity-20 hover:cursor-default hover:bg-inherit hover:text-inherit"
+          : ""
+      }`}
     >
       {children}
     </button>

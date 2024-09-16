@@ -31,7 +31,7 @@ import { cleanFilters } from "../../../utils/cleanFilters";
 import { setFilters } from "../../../redux/filtersSlice";
 import { clearCampers } from "../../../redux/campersSlice";
 import { AppDispatch } from "../../../redux/store";
-import { SearchFormValues } from "../../../types/types";
+import { SearchFormValues, SearchFormProps } from "../../../types/types";
 import { mapSearchFormValuesToFilters } from "../../../utils/mapSearchFormValuesToFilters";
 
 const validationSchema = Yup.object({
@@ -50,25 +50,34 @@ const validationSchema = Yup.object({
   water: Yup.boolean(),
 });
 
-export default function SearchForm() {
+export default function SearchForm({
+  handleOpenModal,
+  showSidebar,
+}: SearchFormProps) {
   const dispatch = useDispatch<AppDispatch>();
-  const sidebar = document.querySelector(".sidebar");
-
-  sidebar?.classList.toggle("show-sidebar");
-
-  const handleClick = () => {
-    sidebar?.classList.toggle("show-sidebar");
-  };
 
   const handleSubmit = (values: SearchFormValues) => {
     const clearFilters = cleanFilters(mapSearchFormValuesToFilters(values));
-    dispatch(clearCampers());
-    dispatch(setFilters(clearFilters));
+
+    if (Object.keys(clearFilters).length > 0) {
+      dispatch(clearCampers());
+      dispatch(setFilters(clearFilters));
+    }
+  };
+
+  const handleReset = (resetForm: () => void) => {
+    resetForm();
+    dispatch(setFilters({}));
   };
 
   return (
-    <aside className="sidebar w-fit">
-      <IoClose onClick={handleClick} className="block tab:hidden" />
+    <aside
+      className={`sidebar w-fit relative ${showSidebar ? "show-sidebar" : ""}`}
+    >
+      <IoClose
+        onClick={handleOpenModal}
+        className="absolute top-5 right-4 size-8 cursor-pointer text-gray hover:text-buttonHover hover:scale-110 transition-transform duration-300 tab:hidden"
+      />
 
       <Formik<SearchFormValues>
         initialValues={{
@@ -89,8 +98,7 @@ export default function SearchForm() {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ values }) => (
-          // <Form className="w-[250px] desk:w-[360px]">
+        {({ values, resetForm }) => (
           <Form className="w-[250px] desk:w-[360px]">
             <div className="mb-10">
               <label htmlFor="location" className="text-gray mb-2 block">
@@ -105,7 +113,7 @@ export default function SearchForm() {
                   id="location"
                   name="location"
                   placeholder="Exp: Kyiv"
-                  className="border-none rounded-xl w-full py-4 pl-12 pr-5 bg-inputs placeholder:text-text"
+                  className="border-transparent rounded-xl w-full py-4 pl-12 pr-5 bg-inputs placeholder:text-text hover:placeholder:text-buttonHover"
                 />
               </div>
             </div>
@@ -116,7 +124,7 @@ export default function SearchForm() {
               <h3 className="after-line">Transmission</h3>
               <div className="grid grid-cols-2 lap:gap-4 desk:grid-cols-3 gap-4 text-center pt-6">
                 <label
-                  className={`custom-label p-1.5 border-2 rounded-lg ${
+                  className={`custom-label p-1.5 border-2 rounded-lg hover:border-buttonHover ${
                     values.transmission === "automatic" ? "border-button" : ""
                   }`}
                 >
@@ -133,7 +141,7 @@ export default function SearchForm() {
                 </label>
 
                 <label
-                  className={`custom-label p-1.5 border-2 rounded-lg ${
+                  className={`custom-label p-1.5 border-2 rounded-lg hover:border-buttonHover ${
                     values.transmission === "manual" ? "border-button" : ""
                   }`}
                 >
@@ -155,7 +163,7 @@ export default function SearchForm() {
               <h3 className="after-line">Engine</h3>
               <div className="grid grid-cols-2 lap:gap-4 desk:grid-cols-3 gap-4 text-center pt-6">
                 <label
-                  className={`custom-label p-1.5 border-2 rounded-lg ${
+                  className={`custom-label p-1.5 border-2 rounded-lg hover:border-buttonHover ${
                     values.engine === "diesel" ? "border-button" : ""
                   }`}
                 >
@@ -171,7 +179,7 @@ export default function SearchForm() {
                 </label>
 
                 <label
-                  className={`custom-label p-1.5 border-2 rounded-lg ${
+                  className={`custom-label p-1.5 border-2 rounded-lg hover:border-buttonHover ${
                     values.engine === "petrol" ? "border-button" : ""
                   }`}
                 >
@@ -188,7 +196,7 @@ export default function SearchForm() {
                 </label>
 
                 <label
-                  className={`custom-label p-1.5 border-2 rounded-lg ${
+                  className={`custom-label p-1.5 border-2 rounded-lg hover:border-buttonHover ${
                     values.engine === "hybrid" ? "border-button" : ""
                   }`}
                 >
@@ -211,7 +219,7 @@ export default function SearchForm() {
 
               <div className="grid grid-cols-2 lap:gap-4 desk:grid-cols-3 gap-4 text-center pt-6 pb-8">
                 <label
-                  className={`custom-label 
+                  className={`custom-label hover:border-buttonHover
                     ${values.AC ? "border-button" : ""}`}
                 >
                   <Field type="checkbox" name="AC" className="hidden" />
@@ -220,7 +228,7 @@ export default function SearchForm() {
                 </label>
 
                 <label
-                  className={`custom-label 
+                  className={`custom-label hover:border-buttonHover
                     ${values.bathroom ? "border-button" : ""}`}
                 >
                   <Field
@@ -234,7 +242,7 @@ export default function SearchForm() {
                 </label>
 
                 <label
-                  className={`custom-label 
+                  className={`custom-label hover:border-buttonHover
                     ${values.kitchen ? "border-button" : ""}`}
                 >
                   <Field
@@ -248,7 +256,7 @@ export default function SearchForm() {
                 </label>
 
                 <label
-                  className={`custom-label 
+                  className={`custom-label hover:border-buttonHover
                     ${values.TV ? "border-button" : ""}`}
                 >
                   <Field
@@ -262,7 +270,7 @@ export default function SearchForm() {
                 </label>
 
                 <label
-                  className={`custom-label 
+                  className={`custom-label hover:border-buttonHover
                     ${values.radio ? "border-button" : ""}`}
                 >
                   <Field
@@ -276,7 +284,7 @@ export default function SearchForm() {
                 </label>
 
                 <label
-                  className={`custom-label 
+                  className={`custom-label hover:border-buttonHover
                     ${values.refrigerator ? "border-button" : ""}`}
                 >
                   <Field
@@ -290,7 +298,7 @@ export default function SearchForm() {
                 </label>
 
                 <label
-                  className={`custom-label 
+                  className={`custom-label hover:border-buttonHover
                     ${values.microwave ? "border-button" : ""}`}
                 >
                   <Field
@@ -304,7 +312,7 @@ export default function SearchForm() {
                 </label>
 
                 <label
-                  className={`custom-label 
+                  className={`custom-label hover:border-buttonHover
                     ${values.gas ? "border-button" : ""}`}
                 >
                   <Field
@@ -318,7 +326,7 @@ export default function SearchForm() {
                 </label>
 
                 <label
-                  className={`custom-label 
+                  className={`custom-label hover:border-buttonHover
                     ${values.water ? "border-button" : ""}`}
                 >
                   <Field
@@ -336,7 +344,7 @@ export default function SearchForm() {
             <h3 className="after-line">Vehicle Type</h3>
             <div className="grid grid-cols-2 lap:gap-4 desk:grid-cols-3 gap-4 text-center pt-6 pb-10">
               <label
-                className={`custom-label p-1.5 border-2 rounded-lg ${
+                className={`custom-label p-1.5 border-2 rounded-lg hover:border-buttonHover ${
                   values.form === "panelTruck" ? "border-button" : ""
                 }`}
               >
@@ -351,7 +359,7 @@ export default function SearchForm() {
               </label>
 
               <label
-                className={`custom-label p-1.5 border-2 rounded-lg ${
+                className={`custom-label p-1.5 border-2 rounded-lg hover:border-buttonHover ${
                   values.form === "fullyIntegrated" ? "border-button" : ""
                 }`}
               >
@@ -366,7 +374,7 @@ export default function SearchForm() {
               </label>
 
               <label
-                className={`custom-label p-1.5 border-2 rounded-lg ${
+                className={`custom-label p-1.5 border-2 rounded-lg hover:border-buttonHover ${
                   values.form === "alcove" ? "border-button" : ""
                 }`}
               >
@@ -381,9 +389,21 @@ export default function SearchForm() {
               </label>
             </div>
 
-            <Button width="166px" className="text-white" type="submit">
-              Search
-            </Button>
+            <div className="flex justify-between">
+              <Button width="120px" className="text-white" type="submit">
+                Search
+              </Button>
+
+              <Button
+                width="120px"
+                className="text-main bg-white hover:text-inputs "
+                type="button"
+                onClick={() => handleReset(resetForm)}
+                disabled={Object.values(values).every((value) => !value)}
+              >
+                Reset
+              </Button>
+            </div>
           </Form>
         )}
       </Formik>

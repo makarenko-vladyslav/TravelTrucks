@@ -94,6 +94,10 @@ export interface SearchFormValues {
   gas: boolean;
   water: boolean;
 }
+export interface SearchFormProps {
+  handleOpenModal: () => void;
+  showSidebar: boolean;
+}
 
 export interface BookingFormValues {
   name: string;
