@@ -28,7 +28,7 @@ const CatalogPage: React.FC = () => {
 
       <IoFilterCircleOutline
         onClick={handleOpenModal}
-        className="absolute top-[30px] size-9 mobLarge:size-8 mobLarge:top-5 z-50 right-14  text-gray hover:text-buttonHover transition-colors duration-300 cursor-pointer tab:hidden"
+        className="absolute top-[30px] size-9 mobLarge:size-8 mobLarge:top-5 z-10 right-14  text-gray hover:text-buttonHover transition-colors duration-300 cursor-pointer tab:hidden"
       />
     </>
   );
