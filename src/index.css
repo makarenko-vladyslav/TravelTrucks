@@ -183,3 +183,14 @@ textarea {
 .react-datepicker-wrapper {
   width: 100%;
 }
+
+.swiper-pagination .swiper-pagination-bullet {
+  background-color: var(--color-badges);
+  opacity: 0.7;
+}
+
+.swiper-pagination .swiper-pagination-bullet-active {
+  background-color: var(--color-button-hover);
+  opacity: 1;
+  scale: 1.25;
+}

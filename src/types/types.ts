@@ -76,8 +76,7 @@ export interface TextDetails {
 }
 
 export interface CamperGalleryProps {
-  gallery: { original: string }[];
-  isTabletOrMobile: boolean;
+  gallery: Array<{ original: string }>;
 }
 
 export interface SearchFormValues {

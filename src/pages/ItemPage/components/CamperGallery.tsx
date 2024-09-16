@@ -1,77 +1,84 @@
 import React, { useState } from "react";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import { responsive } from "../../../utils/responsive";
-import ModalImage from "../../../components/ModalImage";
 import { CamperGalleryProps } from "../../../types/types";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination } from "swiper/modules";
+import ModalImage from "../../../components/ModalImage";
+import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 
-const CamperGallery: React.FC<CamperGalleryProps> = ({
-  gallery,
-  isTabletOrMobile,
-}) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+const CamperGallery: React.FC<CamperGalleryProps> = ({ gallery }) => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
 
-  const openModal = (index: number) => {
+  const openModal = (index: number): void => {
     setActiveImageIndex(index);
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setIsModalOpen(false);
   };
 
-  const handleNext = () => {
+  const handleNext = (): void => {
     setActiveImageIndex((prevIndex) =>
       prevIndex === gallery.length - 1 ? 0 : prevIndex + 1
     );
   };
 
-  const handlePrev = () => {
+  const handlePrev = (): void => {
     setActiveImageIndex((prevIndex) =>
       prevIndex === 0 ? gallery.length - 1 : prevIndex - 1
     );
   };
 
+  const duplicatedGallery = [...gallery, ...gallery];
+
   return (
     <>
-      <Carousel
-        additionalTransfrom={0}
-        autoPlaySpeed={3000}
-        infinite
-        keyBoardControl
-        minimumTouchDrag={80}
-        partialVisible
-        pauseOnHover
-        renderArrowsWhenDisabled={false}
-        rtl={false}
-        shouldResetAutoplay={true}
-        showDots={false}
-        slidesToSlide={1}
-        swipeable
-        removeArrowOnDeviceType={["mobile", "tablet"]}
-        responsive={responsive}
-        autoPlay={!isTabletOrMobile}
-        rewind={true}
-        rewindWithAnimation={true}
-        className="mb-6"
+      <Swiper
+        spaceBetween={20}
+        slidesPerView="auto"
+        loop={true}
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        }}
+        pagination={{
+          clickable: true,
+          el: ".swiper-pagination", // Задаємо кастомний селектор пагінації
+        }}
+        scrollbar={{ draggable: true }}
+        modules={[Navigation, Pagination]}
+        className="mb-6 flex items-center justify-center gap-12"
       >
-        {gallery.map((image, index) => (
-          <img
-            key={index}
-            src={image.original}
-            alt={`Camper photo ${index + 1}`}
-            className="object-cover object-center w-[292px] h-[312px] rounded-[10px] overflow-hidden bg-badges cursor-pointer"
-            onClick={() => openModal(index)}
-          />
+        {duplicatedGallery.map((image, index) => (
+          <SwiperSlide key={index} style={{ width: "auto" }}>
+            <img
+              src={image.original}
+              alt={`Camper photo ${index + 1}`}
+              className="object-cover object-center w-[292px] h-[312px] rounded-[10px] overflow-hidden bg-badges cursor-pointer"
+              onClick={() => openModal(index)}
+            />
+          </SwiperSlide>
         ))}
-      </Carousel>
+
+        <div className="swiper-button-prev after:hidden">
+          <FaCircleChevronLeft className="text-white hover:text-main transition-colors" />
+        </div>
+        <div className="swiper-button-next after:hidden">
+          <FaCircleChevronRight className="text-white hover:text-main transition-colors" />
+        </div>
+
+        <div className="swiper-pagination"></div>
+      </Swiper>
 
       <ModalImage
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         activeImageIndex={activeImageIndex}
-        gallery={gallery}
+        gallery={duplicatedGallery}
         handleNext={handleNext}
         handlePrev={handlePrev}
       />

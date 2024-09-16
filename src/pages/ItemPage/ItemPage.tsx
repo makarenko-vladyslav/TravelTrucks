@@ -10,13 +10,11 @@ import CamperDescription from "./components/CamperDescription";
 import CamperNavigation from "./components/CamperNavigation";
 import Loader from "../../components/Loader";
 import { selectCampers } from "../../redux/selectors";
-import { useMediaQuery } from "react-responsive";
 import BookingForm from "./components/BookingForm";
 
 export default function CatalogItemPage() {
   const { id } = useParams<{ id: string | undefined }>();
   const dispatch = useDispatch<AppDispatch>();
-  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1024px)" });
 
   const { currentItem, loading } = useSelector(selectCampers);
 
@@ -39,10 +37,7 @@ export default function CatalogItemPage() {
             ) : (
               <>
                 <CamperDetails {...currentItem} />
-                <CamperGallery
-                  gallery={currentItem.gallery}
-                  isTabletOrMobile={isTabletOrMobile}
-                />
+                <CamperGallery gallery={currentItem.gallery} />
                 <CamperDescription description={currentItem.description} />
 
                 <section className="booking">
