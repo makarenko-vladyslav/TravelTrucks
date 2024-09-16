@@ -2,7 +2,7 @@ import { ReviewProps } from "../../../types/types";
 import ReviewItem from "./ReviewItem";
 
 const ReviewList: React.FC<{ reviews: ReviewProps[] }> = ({ reviews }) => (
-  <ul className="py-3 max-w-[640px]">
+  <ul className="py-3 px-4 tab:px-8 desk:px-14">
     {reviews.length ? (
       reviews.map((review, index) => (
         <ReviewItem

@@ -43,7 +43,7 @@ const CatalogList = forwardRef<HTMLDivElement>(function CatalogList(_, ref) {
 
   return (
     <section className="campers-list" ref={ref}>
-      <ul className="grid gap-8 w-full mb-10">
+      <ul className="grid gap-4 mobLarge:gap-6 tab:gap-8 w-full mb-10">
         {error && (
           <h3 className="text-center text-text font-bold text-xl">{error}</h3>
         )}
@@ -52,7 +52,7 @@ const CatalogList = forwardRef<HTMLDivElement>(function CatalogList(_, ref) {
           <li
             id={`${camper.id}`}
             key={camper.id}
-            className="grid grid-cols-2 lap:grid-cols-[300px_1fr] gap-6 border border-grayLight p-6 rounded-[20px] w-full min-h-[368px] overflow-hidden"
+            className="p-2 tab:p-4 desk:p-6 grid grid-cols-1 desk:grid-cols-[300px_1fr] gap-6 border border-grayLight rounded-[20px] w-full min-h-[368px] overflow-hidden"
             ref={isNewCamper(index) ? newCamperRef : null}
           >
             <CatalogItem camper={camper} />

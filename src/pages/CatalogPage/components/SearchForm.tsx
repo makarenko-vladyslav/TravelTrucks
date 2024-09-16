@@ -67,7 +67,7 @@ export default function SearchForm() {
   };
 
   return (
-    <aside className="sidebar">
+    <aside className="sidebar w-fit">
       <IoClose onClick={handleClick} className="block tab:hidden" />
 
       <Formik<SearchFormValues>
@@ -90,7 +90,8 @@ export default function SearchForm() {
         onSubmit={handleSubmit}
       >
         {({ values }) => (
-          <Form className="w-[300px] lap:w-[360px] col-span-1">
+          // <Form className="w-[250px] desk:w-[360px]">
+          <Form className="w-[250px] desk:w-[360px]">
             <div className="mb-10">
               <label htmlFor="location" className="text-gray mb-2 block">
                 Location
@@ -113,7 +114,7 @@ export default function SearchForm() {
               <h3 className="text-text font-medium mb-8 block">Filters</h3>
 
               <h3 className="after-line">Transmission</h3>
-              <div className="grid grid-cols-2 gap-4 text-center pt-6">
+              <div className="grid grid-cols-2 lap:gap-4 desk:grid-cols-3 gap-4 text-center pt-6">
                 <label
                   className={`custom-label p-1.5 border-2 rounded-lg ${
                     values.transmission === "automatic" ? "border-button" : ""
@@ -152,7 +153,7 @@ export default function SearchForm() {
 
             <div className="mb-10">
               <h3 className="after-line">Engine</h3>
-              <div className="grid grid-cols-3 gap-4 text-center pt-6">
+              <div className="grid grid-cols-2 lap:gap-4 desk:grid-cols-3 gap-4 text-center pt-6">
                 <label
                   className={`custom-label p-1.5 border-2 rounded-lg ${
                     values.engine === "diesel" ? "border-button" : ""
@@ -208,7 +209,7 @@ export default function SearchForm() {
             <div>
               <h3 className="after-line">Vehicle equipment</h3>
 
-              <div className="grid grid-cols-3 gap-4 text-center pt-6 pb-8">
+              <div className="grid grid-cols-2 lap:gap-4 desk:grid-cols-3 gap-4 text-center pt-6 pb-8">
                 <label
                   className={`custom-label 
                     ${values.AC ? "border-button" : ""}`}
@@ -333,7 +334,7 @@ export default function SearchForm() {
             </div>
 
             <h3 className="after-line">Vehicle Type</h3>
-            <div className="grid grid-cols-3 gap-4 text-center pt-6 pb-10">
+            <div className="grid grid-cols-2 lap:gap-4 desk:grid-cols-3 gap-4 text-center pt-6 pb-10">
               <label
                 className={`custom-label p-1.5 border-2 rounded-lg ${
                   values.form === "panelTruck" ? "border-button" : ""

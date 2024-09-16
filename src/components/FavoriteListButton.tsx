@@ -27,14 +27,14 @@ const FavoriteList: React.FC = () => {
     <div className="relative">
       <button
         aria-label="Toggle Favorites Modal"
-        className={`z-50 absolute right-0 -top-[18px]  cursor-pointer p-2 rounded-full text-white border transition-colors ${
+        className={`z-50 absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer p-2 rounded-full text-white border transition-colors size-8 flex justify-center items-center ${
           favorites.length > 0
             ? "bg-button hover:bg-white hover:text-buttonHover"
             : "bg-text hover:bg-buttonHover"
         }`}
         onClick={handleToggleModal}
       >
-        <BsSuitHeartFill size={16} />
+        <BsSuitHeartFill size="100%" />
       </button>
 
       {isModalOpen && (

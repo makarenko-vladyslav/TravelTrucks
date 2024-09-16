@@ -30,7 +30,7 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose, children }) => {
       ></div>
       <div
         className={`text-nowrap absolute right-5 top-5 z-20 bg-white bg-opacity-90 backdrop-blur-lg border border-text border-opacity-30 p-6 rounded-lg w-fit shadow-lg transform transition-all duration-300 ${
-          isVisible ? "scale-100 top-0 right-0" : "scale-0 -top-32 -right-36"
+          isVisible ? "scale-100 top-0 right-0" : "scale-0 -top-16 -right-24"
         }`}
         onClick={(e) => e.stopPropagation()}
       >

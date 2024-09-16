@@ -29,7 +29,7 @@ export default function CatalogItemPage() {
   return (
     <>
       <Header />
-      <section className="container wrapper">
+      <section className="wrapper max-w-[1440px] mx-auto">
         {loading ? (
           <Loader fullScreen />
         ) : (
@@ -48,7 +48,7 @@ export default function CatalogItemPage() {
                 <section className="booking">
                   <CamperNavigation />
 
-                  <div className="py-11 flex gap-10">
+                  <div className="py-11 grid gap-10 grid-cols-1 lap:grid-cols-2">
                     <Suspense fallback={<Loader />}>
                       <Outlet />
                     </Suspense>

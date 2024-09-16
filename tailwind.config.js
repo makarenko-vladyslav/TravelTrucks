@@ -3,6 +3,7 @@ export default {
   theme: {
     screens: {
       mob: "375px",
+      mobLarge: "440px",
       tab: "768px",
       lap: "1024px",
       desk: "1440px",

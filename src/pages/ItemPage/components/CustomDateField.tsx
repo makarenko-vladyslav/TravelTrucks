@@ -14,9 +14,9 @@ const CustomDateField: React.FC<CustomDateFieldProps> = ({
   const errorText = typeof errorMessage === "string" ? errorMessage : "";
 
   return (
-    <div className="relative w-full">
+    <>
       <DatePicker
-        className="w-[518.5px] p-[18px] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-text bg-inputs"
+        className="p-[18px] min-w-full rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-text bg-inputs"
         selected={
           field.value instanceof Date
             ? field.value
@@ -37,7 +37,7 @@ const CustomDateField: React.FC<CustomDateFieldProps> = ({
           {errorText}
         </span>
       )}
-    </div>
+    </>
   );
 };
 

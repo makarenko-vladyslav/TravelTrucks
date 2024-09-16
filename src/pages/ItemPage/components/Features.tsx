@@ -74,7 +74,7 @@ const Features: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-[640px] py-11 px-20 bg-inputs rounded-[10px]">
+    <div className="w-full py-11 px-4 tab:px-8 desk:px-20 bg-inputs rounded-[10px]">
       <BooleanDetailsList details={booleanDetails} />
       <h3 className="after-line">Vehicle Type</h3>
       <TextDetailsList details={textDetails} />

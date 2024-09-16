@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
     <>
       <Header />
 
-      <main className="home-page container bg-hero h-[696px] flex flex-col justify-center">
+      <main className="home-page w-full max-w-[1440px] mx-auto bg-hero h-[696px] flex flex-col justify-center">
         <div className="mx-6 tab:ml-16 tab:mr-0">
           <h1 className="text-inputs font-semibold text-5xl leading-[0.93] tab:leading-[0.67] mb-4">
             Campers of your dreams

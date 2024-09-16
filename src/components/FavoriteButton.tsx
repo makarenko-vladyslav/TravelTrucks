@@ -7,9 +7,13 @@ import { Camper } from "../types/types";
 
 interface FavoriteButtonProps {
   favorite: Camper;
+  className?: string;
 }
 
-const FavoriteButton: React.FC<FavoriteButtonProps> = ({ favorite }) => {
+const FavoriteButton: React.FC<FavoriteButtonProps> = ({
+  favorite,
+  className,
+}) => {
   const dispatch = useDispatch();
   const { favorites } = useSelector(selectCampers);
 
@@ -23,8 +27,10 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ favorite }) => {
 
   return (
     <BsSuitHeart
-      className={`cursor-pointer self-center -translate-y-1.5 hover:fill-button size-6
-        ${isFavorite ? "fill-button" : ""}`}
+      className={`cursor-pointer self-center -translate-y-1.5 hover:fill-button size-6 
+        
+        ${isFavorite ? "fill-button" : ""}
+        ${className}`}
       onClick={handleToggleFavorite}
     />
   );

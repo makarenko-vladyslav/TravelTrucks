@@ -140,10 +140,6 @@ textarea {
   @media screen and (min-width: 768px) {
     padding: 48px 24px;
   }
-
-  @media screen and (min-width: 1024px) {
-    padding: 48px 64px;
-  }
 }
 
 .sidebar {
@@ -151,7 +147,6 @@ textarea {
   top: 0;
   left: -320px;
   bottom: 0;
-  width: 320px;
   background-color: var(--color-main);
   color: var(--color-white);
   overflow-y: auto;
@@ -164,7 +159,6 @@ textarea {
 
   @media screen and (min-width: 768px) {
     position: static;
-    width: 360px;
     background-color: transparent;
     color: var(--color-main);
     opacity: 1;
@@ -184,4 +178,8 @@ textarea {
   text-shadow: 0 0 1px var(--color-text);
   opacity: 0;
   filter: blur(5px);
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
 }
