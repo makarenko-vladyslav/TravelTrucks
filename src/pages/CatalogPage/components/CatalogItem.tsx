@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../../components/Button";
 import { FaStar } from "react-icons/fa";
@@ -26,14 +26,25 @@ const allowedKeys: IconKey[] = [
 ];
 
 const CatalogItem: React.FC<CatalogItemProps> = ({ camper }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
+
   return (
     <>
       <Link to={`/catalog/${camper.id}/features`}>
-        <img
-          src={camper.gallery[0]?.thumb}
-          alt={`${camper.name} photo`}
-          className="h-full rounded-lg object-cover bg-grayLight"
-        />
+        <div className="relative h-full rounded-lg overflow-hidden">
+          <img
+            src={camper.gallery[0]?.thumb}
+            alt={`${camper.name} photo`}
+            className={`h-full w-full object-cover transition-all duration-500 ${
+              isLoading ? "blur-md" : "blur-0"
+            }`}
+            onLoad={handleImageLoad}
+          />
+        </div>
       </Link>
 
       <div>

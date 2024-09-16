@@ -71,7 +71,7 @@ const CatalogList = forwardRef<HTMLDivElement>(function CatalogList(_, ref) {
               width="145px"
               className="text-main bg-white border border-grayLight hover:bg-white hover:border-buttonHover"
             >
-              Show more
+              Load more
             </Button>
           ))}
       </div>
