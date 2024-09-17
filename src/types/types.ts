@@ -94,9 +94,11 @@ export interface SearchFormValues {
   gas: boolean;
   water: boolean;
 }
-export interface SearchFormProps {
-  handleOpenModal: () => void;
-  showSidebar: boolean;
+export interface SearchFormFieldsProps {
+  values: SearchFormValues;
+  handleReset: () => void;
+  resetForm: () => void;
+  filtersFromState: Filters;
 }
 
 export interface BookingFormValues {
@@ -157,4 +159,9 @@ export interface FavoritesModalProps {
   }[];
   isVisible: boolean;
   onClose: () => void;
+}
+
+export interface SearchFormProps {
+  showSidebar: boolean;
+  handleOpenModal?: () => void;
 }

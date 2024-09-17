@@ -26,7 +26,7 @@ export default function Button({
       className={`py-4 h-[58px] rounded-full bg-button font-medium hover:bg-buttonHover transition-all w-fit ${className}
       ${
         disabled
-          ? "opacity-20 hover:cursor-default hover:bg-inherit hover:text-inherit"
+          ? "opacity-20 hover:cursor-default hover:bg-inherit hover:text-main"
           : ""
       }`}
     >

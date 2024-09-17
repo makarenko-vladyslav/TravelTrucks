@@ -12,7 +12,6 @@ const CatalogPage: React.FC = () => {
   const handleOpenModal = () => {
     sidebar?.classList.toggle("show-sidebar");
     setShowSidebar(!showSidebar);
-
   };
 
   return (

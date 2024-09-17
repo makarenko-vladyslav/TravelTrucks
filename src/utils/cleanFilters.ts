@@ -1,5 +1,4 @@
-type FilterValue = string | number | boolean;
-type Filters = Record<string, FilterValue>;
+import { Filters } from "../types/types";
 
 export const cleanFilters = (filters: Filters): Filters => {
   const cleanedFilters: Filters = {};
