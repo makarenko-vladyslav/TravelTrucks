@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Modal from "react-modal";
 import { IoMdCloseCircle } from "react-icons/io";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
+import useDisableScrollAndKeyboard from "../../../hooks/seDisableScrollAndKeyboard";
 
 interface ModalImageProps {
   isOpen: boolean;
@@ -41,30 +42,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
   handleNext,
   handlePrev,
 }) => {
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") {
-        handlePrev();
-      } else if (e.key === "ArrowRight") {
-        handleNext();
-      }
-    };
-
-    if (isOpen) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen, handleNext, handlePrev]);
-
-  useEffect(() => {
-    if (isOpen) {
-      const closeButton = document.getElementById("modal-close-button");
-      closeButton?.focus();
-    }
-  }, [isOpen]);
+  useDisableScrollAndKeyboard(isOpen, handleNext, handlePrev, onRequestClose);
 
   return (
     <Modal
@@ -76,9 +54,9 @@ const ModalImage: React.FC<ModalImageProps> = ({
       <button
         id="modal-close-button"
         onClick={onRequestClose}
-        className="absolute top-2 -right-4 z-[999]"
+        className="absolute top-3 -right-3 z-[999] transition-opacity duration-300"
       >
-        <IoMdCloseCircle className="size-9 text-grayLight hover:text-button cursor-pointer transition-colors" />
+        <IoMdCloseCircle className="size-6 text-grayLight hover:text-button cursor-pointer" />
       </button>
 
       <button onClick={handlePrev}>
@@ -87,7 +65,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
       <img
         src={gallery[activeImageIndex].original}
         alt={`Slide ${activeImageIndex + 1}`}
-        className="w-full h-full object-cover object-center rounded-[16px]"
+        className="w-full h-full object-cover object-center rounded-[8px]"
       />
       <button onClick={handleNext}>
         <FaCircleChevronRight className="absolute top-1/2 transform -translate-y-1/2 right-5 size-12 text-white hover:text-main transition-colors" />

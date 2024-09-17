@@ -4,8 +4,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+
 import { Navigation, Pagination } from "swiper/modules";
-import ModalImage from "../../../components/ModalImage";
+import ModalImage from "./ModalImage";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 
 const CamperGallery: React.FC<CamperGalleryProps> = ({ gallery }) => {
@@ -33,27 +34,24 @@ const CamperGallery: React.FC<CamperGalleryProps> = ({ gallery }) => {
     );
   };
 
-  const duplicatedGallery = [...gallery, ...gallery];
-
   return (
     <>
       <Swiper
         spaceBetween={20}
         slidesPerView="auto"
-        loop={true}
         navigation={{
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         }}
         pagination={{
           clickable: true,
-          el: ".swiper-pagination", // Задаємо кастомний селектор пагінації
+          el: ".swiper-pagination",
         }}
         scrollbar={{ draggable: true }}
         modules={[Navigation, Pagination]}
         className="mb-6 flex items-center justify-center gap-12"
       >
-        {duplicatedGallery.map((image, index) => (
+        {gallery.map((image, index) => (
           <SwiperSlide key={index} style={{ width: "auto" }}>
             <img
               src={image.original}
@@ -78,7 +76,7 @@ const CamperGallery: React.FC<CamperGalleryProps> = ({ gallery }) => {
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         activeImageIndex={activeImageIndex}
-        gallery={duplicatedGallery}
+        gallery={gallery}
         handleNext={handleNext}
         handlePrev={handlePrev}
       />

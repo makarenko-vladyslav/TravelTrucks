@@ -188,3 +188,8 @@ textarea {
   opacity: 1;
   scale: 1.25;
 }
+
+swiper-button-next.swiper-button-disabled,
+swiper-button-prev.swiper-button-disabled {
+  pointer-events: default !important;
+}
