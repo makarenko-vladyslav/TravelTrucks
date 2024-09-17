@@ -165,3 +165,12 @@ export interface SearchFormProps {
   showSidebar: boolean;
   handleOpenModal?: () => void;
 }
+
+export interface ButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  width: string;
+  className?: string;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+}

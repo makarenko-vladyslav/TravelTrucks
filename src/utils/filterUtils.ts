@@ -12,6 +12,27 @@ export const getFiltersFromUrl = (): Filters => {
   return filters;
 };
 
+// Функція для очищення фільтрів з URL-параметрів
+export const clearUrlFilters = () => {
+  const newUrl = `${window.location.pathname}`;
+  window.history.replaceState(null, "", newUrl);
+};
+
+// Функція для оновлення URL фільтрами
+export const updateUrlWithFilters = (filters: Filters) => {
+  const params = new URLSearchParams();
+
+  Object.keys(filters).forEach((key) => {
+    const value = filters[key as keyof Filters];
+    if (value) {
+      params.set(key, String(value));
+    }
+  });
+
+  const newUrl = `${window.location.pathname}?${params.toString()}`;
+  window.history.replaceState(null, "", newUrl);
+};
+
 // Функція для отримання початкових значень форми з фільтрів
 export const getInitialValues = (filters: Filters) => ({
   location: String(filters.location || ""),
@@ -28,18 +49,3 @@ export const getInitialValues = (filters: Filters) => ({
   gas: !!filters.gas,
   water: !!filters.water,
 });
-
-// Функція для оновлення URL фільтрами
-export const updateUrlWithFilters = (filters: Filters) => {
-  const params = new URLSearchParams();
-
-  Object.keys(filters).forEach((key) => {
-    const value = filters[key as keyof Filters];
-    if (value) {
-      params.set(key, String(value));
-    }
-  });
-
-  const newUrl = `${window.location.pathname}?${params.toString()}`;
-  window.history.replaceState(null, "", newUrl);
-};
