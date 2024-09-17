@@ -1,10 +1,10 @@
 import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
-import * as Yup from "yup";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CustomDateField from "../components/CustomDateField";
 import Button from "../../../components/Button";
 import { BookingFormValues } from "../../../types/types";
+import { bookingValidationSchema } from "../../../utils/validationSchemas";
 
 const initialValues: BookingFormValues = {
   name: "",
@@ -12,15 +12,6 @@ const initialValues: BookingFormValues = {
   bookingDate: "",
   comment: "",
 };
-
-const validationSchema = Yup.object({
-  name: Yup.string().required("Name is required"),
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  bookingDate: Yup.string().required("Booking date is required"),
-  comment: Yup.string(),
-});
 
 const BookingForm: React.FC = () => {
   const onSubmit = (
@@ -42,7 +33,7 @@ const BookingForm: React.FC = () => {
 
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        validationSchema={bookingValidationSchema}
         onSubmit={onSubmit}
       >
         <Form className="relative flex flex-col gap-[14px] h-auto w-full">

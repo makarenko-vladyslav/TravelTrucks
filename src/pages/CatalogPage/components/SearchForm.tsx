@@ -6,7 +6,7 @@ import SearchFormFields from "./SearchFormFields";
 
 import { cleanFilters } from "../../../utils/cleanFilters";
 import { mapSearchFormValuesToFilters } from "../../../utils/mapSearchFormValuesToFilters";
-import { validationSchema } from "../../../utils/validationSchema";
+import { searchValidationSchema } from "../../../utils/validationSchemas";
 import {
   clearUrlFilters,
   getFiltersFromUrl,
@@ -56,7 +56,7 @@ export default function SearchForm({ showSidebar }: SearchFormProps) {
     >
       <Formik<SearchFormValues>
         initialValues={getInitialValues(filtersFromState)}
-        validationSchema={validationSchema}
+        validationSchema={searchValidationSchema}
         onSubmit={handleSubmit}
       >
         {({ values, resetForm }) => (

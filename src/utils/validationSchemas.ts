@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const validationSchema = Yup.object({
+export const searchValidationSchema = Yup.object({
   location: Yup.string(),
   vehicleType: Yup.string(),
   transmission: Yup.string(),
@@ -14,4 +14,13 @@ export const validationSchema = Yup.object({
   microwave: Yup.boolean(),
   gas: Yup.boolean(),
   water: Yup.boolean(),
+});
+
+export const bookingValidationSchema = Yup.object({
+  name: Yup.string().required("Name is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  bookingDate: Yup.string().required("Booking date is required"),
+  comment: Yup.string(),
 });

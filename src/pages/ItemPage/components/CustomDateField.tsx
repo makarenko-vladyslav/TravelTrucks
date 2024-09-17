@@ -30,6 +30,7 @@ const CustomDateField: React.FC<CustomDateFieldProps> = ({
         }}
         placeholderText={placeholder}
         dateFormat="MMMM d, yyyy"
+        minDate={new Date()}
       />
 
       {isError && (
