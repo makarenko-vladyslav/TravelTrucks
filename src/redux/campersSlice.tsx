@@ -22,6 +22,8 @@ const handleRejectedFetchCamperById = (
     typeof action.payload === "string"
       ? action.payload
       : action.error.message || null;
+
+  state.currentItem = null;
 };
 
 const initialState: CampersState = {
